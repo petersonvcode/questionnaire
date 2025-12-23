@@ -1,0 +1,4 @@
+environment         = "prod"
+cost_mode           = "standard"
+route53_zone_id      = "Z044380681JK86X1V0E0"
+acm_certificate_arn = "arn:aws:acm:us-east-1:548566065467:certificate/a924eaf6-2760-42bb-9858-ae8ef26ef7e0"

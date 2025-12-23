@@ -1,0 +1,8 @@
+# IaC
+iac/src/.terraform
+iac/src/.terraform.lock.hcl
+iac/src/planfile
+
+# Frontend
+frontend/node_modules
+frontend/dist

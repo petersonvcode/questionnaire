@@ -1,0 +1,18 @@
+{
+  "name": "questionnaire-frontend",
+  "version": "0.0.1",
+  "description": "",
+  "license": "MIT",
+  "author": "Peterson V Gama",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "pnpm": "10.26.2",
+    "terser": "^5.44.1",
+    "vite": "^7.3.0"
+  },
+  "packageManager": "pnpm@10.26.2"
+}
