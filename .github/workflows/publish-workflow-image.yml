@@ -31,7 +31,7 @@ jobs:
             exit 1;
           }
 
-          frontend_version=$(cat frontend/.nvmrc)
+          frontend_version=$(cat frontend/.nvmrc | tr -d 'vV')
           echo "Frontend version: $frontend_version"
           test -n "$frontend_version" || {
             echo "Frontend version not found. Aborting.";
