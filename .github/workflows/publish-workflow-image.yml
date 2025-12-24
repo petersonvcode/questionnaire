@@ -1,0 +1,46 @@
+name: Publish Workflow Images
+run-name: Publish Workflow Images
+description: |
+  Will build the docker image at tools/base-workflow-image and push it to the repository.
+  This image is used to run the other workflows.
+
+on:
+  workflow_dispatch:
+    # The workflow should be triggered manually.
+
+jobs:
+  publish-workflow-image:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout:
+            - 'tools/base-workflow-image'
+            - 'backend/go.mod'
+            - 'frontend/package.json'
+            - 'frontend/.nvmrc'
+
+      - name: Get versions
+        shell: bash
+        run: |
+          backend_version=$(grep go backend/go.mod | head -1 | cut -d' ' -f2)
+          echo "Backend version: $backend_version"
+          test -n "$backend_version" || {
+            echo "Backend version not found. Aborting.";
+            exit 1;
+          }
+
+          frontend_version=$(cat frontend/.nvmrc)
+          echo "Frontend version: $frontend_version"
+          test -n "$frontend_version" || {
+            echo "Frontend version not found. Aborting.";
+            exit 1;
+          }
+
+          pnpm_version=$(cat frontend/package.json | jq -r '.packageManager' | cut -d'@' -f2)
+          echo "Pnpm version: $pnpm_version"
+          test -n "$pnpm_version" || {
+            echo "Pnpm version not found. Aborting.";
+            exit 1;
+          }

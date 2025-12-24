@@ -6,6 +6,11 @@ VALID_ENVIRONMENTS=(dev prod)
 
 validate_environment() {
     environment=$1
+    test -n "$environment" || {
+        echo >&2 "Environment not specified. Aborting.";
+        return 1;
+    }
+
     if ! echo "${VALID_ENVIRONMENTS[@]}" | grep -q "$environment"; then
         echo >&2 "Invalid environment: $environment. Valid environments: ${VALID_ENVIRONMENTS[@]}";
         exit 1;

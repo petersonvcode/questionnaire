@@ -26,3 +26,8 @@ variable "acm_certificate_arn" {
   type        = string
   description = "The ACM certificate ARN for the website"
 }
+
+variable "vps_ip" {
+  type        = string
+  description = "The IP address of the VPS"
+}

@@ -6,3 +6,6 @@ iac/src/planfile
 # Frontend
 frontend/node_modules
 frontend/dist
+
+# Backend
+backend/bin
