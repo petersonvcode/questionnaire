@@ -15,11 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          sparse-checkout:
-            - 'tools/base-workflow-image'
-            - 'backend/go.mod'
-            - 'frontend/package.json'
-            - 'frontend/.nvmrc'
+          sparse-checkout: |
+            tools/base-workflow-image
+            backend/go.mod
+            frontend/package.json
+            frontend/.nvmrc
 
       - name: Get versions
         shell: bash
