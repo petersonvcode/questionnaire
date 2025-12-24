@@ -1,5 +1,5 @@
-name: Publish Workflow Images
-run-name: Publish Workflow Images
+name: Publish Workflow Image
+run-name: Publish Workflow Image
 description: |
   Will build the docker image at tools/base-workflow-image and push it to the repository.
   This image is used to run the other workflows.
@@ -17,9 +17,8 @@ jobs:
         with:
           sparse-checkout: |
             tools/base-workflow-image
-            backend/go.mod
-            frontend/package.json
-            frontend/.nvmrc
+            backend
+            frontend
 
       - name: Get versions
         shell: bash
