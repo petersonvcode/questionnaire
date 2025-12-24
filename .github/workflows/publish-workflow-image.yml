@@ -23,19 +23,21 @@ jobs:
       - name: Get versions
         shell: bash
         run: |
-          backend_version=$(grep go backend/go.mod | head -1 | cut -d' ' -f2)
-          echo "Backend version: $backend_version"
-          test -n "$backend_version" || {
-            echo "Backend version not found. Aborting.";
+          go_version=$(grep go backend/go.mod | head -1 | cut -d' ' -f2)
+          echo "Go version: $go_version"
+          test -n "$go_version" || {
+            echo "Go version not found. Aborting.";
             exit 1;
           }
+          echo "go_version=$go_version" >> $GITHUB_OUTPUT
 
-          frontend_version=$(cat frontend/.nvmrc | tr -d 'vV')
-          echo "Frontend version: $frontend_version"
-          test -n "$frontend_version" || {
-            echo "Frontend version not found. Aborting.";
+          node_version=$(cat frontend/.nvmrc | tr -d 'vV')
+          echo "Node version: $node_version"
+          test -n "$node_version" || {
+            echo "Node version not found. Aborting.";
             exit 1;
           }
+          echo "node_version=$node_version" >> $GITHUB_OUTPUT
 
           pnpm_version=$(cat frontend/package.json | jq -r '.packageManager' | cut -d'@' -f2)
           echo "Pnpm version: $pnpm_version"
@@ -43,3 +45,10 @@ jobs:
             echo "Pnpm version not found. Aborting.";
             exit 1;
           }
+          echo "pnpm_version=$pnpm_version" >> $GITHUB_OUTPUT
+
+      - name: Build docker image
+        shell: bash
+        run: |
+          cd tools/base-workflow-image
+          docker build -t test .
