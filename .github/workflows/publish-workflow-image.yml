@@ -11,9 +11,8 @@ on:
       environment:
         description: The environment to publish the workflow image to
         required: true
-        default: dev
-        type: string
-        enum:
+        type: choice
+        options:
           - dev
           - prod
 
