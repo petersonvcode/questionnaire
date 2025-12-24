@@ -79,7 +79,7 @@ jobs:
         shell: bash
         env:
           IMAGE_TAG: q-workflows-${{ inputs.environment }}
-          REPO: ${{ env.WORKFLOW_IMAGE_REPO }}
+          REPO: ${{ vars.WORKFLOW_IMAGE_REPO }}
         run: |
           docker tag "$IMAGE_TAG:latest" "$REPO:latest"
           docker push "$REPO:latest"
