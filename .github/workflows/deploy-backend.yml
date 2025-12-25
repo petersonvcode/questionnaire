@@ -4,13 +4,21 @@ description: Will build the backend for the environment.
 
 on:
   workflow_dispatch:
-
+    inputs:
+      environment:
+        description: The environment to deploy the backend to
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
 
 permissions: read-all
 
 jobs:
   build-backend:
     runs-on: self-hosted
+    environment: ${{ inputs.environment }}
     container: 
       image: ${{ vars.WORKFLOW_IMAGE_REPO }}:latest
       volumes:
