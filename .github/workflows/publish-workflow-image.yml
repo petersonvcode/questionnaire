@@ -22,6 +22,7 @@ jobs:
   publish-workflow-image:
     environment: ${{ inputs.environment }}
     runs-on: self-hosted
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
