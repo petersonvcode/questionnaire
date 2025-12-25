@@ -34,19 +34,11 @@ run() {
         exit 1;
     }
 
-    NVM_VERSION=$(cat ../../frontend/.nvmrc | tr -d 'vV')
-    echo "Nvm version: $NVM_VERSION"
-    test -n "$NVM_VERSION" || {
-        echo "Nvm version not found. Aborting.";
-        exit 1;
-    }
-
     docker build \
         -t q-workflows-${ENVIRONMENT} \
         --build-arg GO_VERSION="$GO_VERSION" \
         --build-arg NODE_VERSION="$NODE_VERSION" \
         --build-arg PNPM_VERSION="$PNPM_VERSION" \
-        --build-arg NVM_VERSION="$NVM_VERSION" \
         .
 
     echo "Docker image built successfully."
