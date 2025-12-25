@@ -32,49 +32,11 @@ jobs:
             backend
             frontend
 
-      - name: Get versions
-        id: versions
-        shell: bash
-        run: |
-          go_version=$(grep go backend/go.mod | head -1 | cut -d' ' -f2)
-          echo "Go version: $go_version"
-          test -n "$go_version" || {
-            echo "Go version not found. Aborting.";
-            exit 1;
-          }
-          echo "go_version=$go_version" >> $GITHUB_OUTPUT
-
-          node_version=$(cat frontend/.nvmrc | tr -d 'vV')
-          echo "Node version: $node_version"
-          test -n "$node_version" || {
-            echo "Node version not found. Aborting.";
-            exit 1;
-          }
-          echo "node_version=$node_version" >> $GITHUB_OUTPUT
-
-          pnpm_version=$(cat frontend/package.json | jq -r '.packageManager' | cut -d'@' -f2)
-          echo "Pnpm version: $pnpm_version"
-          test -n "$pnpm_version" || {
-            echo "Pnpm version not found. Aborting.";
-            exit 1;
-          }
-          echo "pnpm_version=$pnpm_version" >> $GITHUB_OUTPUT
-
       - name: Build docker image
         shell: bash
-        env:
-          GO_VERSION: ${{ steps.versions.outputs.go_version }}
-          NODE_VERSION: ${{ steps.versions.outputs.node_version }}
-          PNPM_VERSION: ${{ steps.versions.outputs.pnpm_version }}
-          IMAGE_TAG: q-workflows-${{ inputs.environment }}
         run: |
           cd tools/base-workflow-image
-          docker build \
-            -t "$IMAGE_TAG" \
-            --build-arg GO_VERSION="$GO_VERSION" \
-            --build-arg NODE_VERSION="$NODE_VERSION" \
-            --build-arg PNPM_VERSION="$PNPM_VERSION" \
-            .
+          ./build.sh ${{ inputs.environment }}
 
       - name: Push docker image
         shell: bash

@@ -39,7 +39,7 @@ jobs:
         run: |
           cd backend
           make build
-
+      
       - name: Deploy backend
         shell: bash
         run: |
