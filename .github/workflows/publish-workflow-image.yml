@@ -31,6 +31,7 @@ jobs:
             tools/base-workflow-image
             backend
             frontend
+            bin
 
       - name: Build docker image
         shell: bash
