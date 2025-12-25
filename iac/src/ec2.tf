@@ -1,8 +1,9 @@
 locals {
   userdata_files = [
-    "${path.module}/scripts/setup-certificate.sh",
-    "${path.module}/scripts/download-backend.sh",
-    "${path.module}/scripts/mount-persistent-storage.sh",
+    "${path.module}/scripts/00-get-config.sh", # Needs to be the first in list
+    "${path.module}/scripts/10-install-backend-dependencies.sh",
+    "${path.module}/scripts/20-setup-backend.sh",
+    "${path.module}/scripts/99-main.sh", # Needs to be the last in list
   ]
   userdata_content = join("\n", [for path in local.userdata_files : file(path)])
   userdata_gzip    = base64gzip(local.userdata_content)
@@ -16,7 +17,6 @@ resource "aws_instance" "backend" {
   availability_zone    = local.aws_ebs_volume_zone
   iam_instance_profile = aws_iam_instance_profile.backend.name
 
-  # user_data                   = local.userdata_content
   user_data_base64            = local.userdata_gzip
   user_data_replace_on_change = true
 
@@ -29,8 +29,8 @@ resource "aws_instance" "backend" {
   ]
 
   tags = {
-    Name = "Backend - ${title(var.environment)}"
-    role = "backend"
+    Name        = "Questionnaire Backend - ${title(var.environment)}"
+    environment = var.environment
   }
 
   metadata_options {
@@ -103,6 +103,11 @@ resource "aws_security_group" "backend" {
   description = "Allows backend to communicate with the world"
 
   vpc_id = data.aws_vpc.default.id
+
+  tags = {
+    # Id tag is used by the backend startup script
+    Id = "q-backend-main-sg"
+  }
 }
 
 resource "aws_security_group_rule" "allow_backend_port" {

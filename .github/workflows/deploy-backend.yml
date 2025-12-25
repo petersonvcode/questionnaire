@@ -1,24 +1,15 @@
-name: Deploy Backend
-run-name: Deploy Backend
-description: |
-  Will deploy the backend to the environment.
+name: Build backend
+run-name: Build Backend
+description: Will build the backend for the environment.
 
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: The environment to deploy the backend to
-        required: true
-        type: choice
-        options:
-          - dev
-          - prod
+
 
 permissions: read-all
 
 jobs:
-  deploy-backend:
-    environment: ${{ inputs.environment }}
+  build-backend:
     runs-on: self-hosted
     container: 
       image: ${{ vars.WORKFLOW_IMAGE_REPO }}:latest
@@ -39,9 +30,33 @@ jobs:
         run: |
           cd backend
           make build
-      
-      - name: Deploy backend
-        shell: bash
+
+      - name: Determine type
+        id: determine_type
         run: |
-          cd backend
-          make deploy
+          TYPE="unknown"
+          if [[ "${{ github.ref_name }}" == "main" ]]; then
+            TYPE="latest"
+          elif [[ "${{ github.ref_name }}" == "develop" ]]; then
+            TYPE="experimental"
+          else
+            # Assume feature branch: add random suffix
+            RANDOM_SUFFIX=$(head /dev/urandom | tr -dc a-z0-9 | head -c6)
+            TYPE="feature-${RANDOM_SUFFIX}"
+          fi
+          echo type: $TYPE
+          echo "TYPE=$TYPE" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }} ${{ steps.determine_type.outputs.TYPE }}
+          tag_name: ${{ steps.determine_type.outputs.TYPE }}
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: false
+          files: |
+            backend/bin/webserver
+          body: Release of backend version ${{ github.ref_name }} ${{ steps.determine_type.outputs.TYPE }}
