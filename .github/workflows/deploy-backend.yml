@@ -42,11 +42,13 @@ jobs:
       - name: Determine type
         id: determine_type
         shell: bash
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
         run: |
           TYPE="unknown"
-          if [[ "${{ github.ref_name }}" == "main" ]]; then
+          if [[ "${{ env.ENVIRONMENT }}" == "prod" ]]; then
             TYPE="latest"
-          elif [[ "${{ github.ref_name }}" == "develop" ]]; then
+          elif [[ "${{ github.ref_name }}" == "develop" && "${{ env.ENVIRONMENT }}" == "dev" ]]; then
             TYPE="experimental"
           else
             # Assume feature branch: add random suffix
