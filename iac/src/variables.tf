@@ -31,3 +31,8 @@ variable "vps_ip" {
   type        = string
   description = "The IP address of the VPS"
 }
+
+variable "region" {
+  type        = string
+  description = "The region of the AWS resources"
+}
