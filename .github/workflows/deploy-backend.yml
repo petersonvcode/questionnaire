@@ -13,7 +13,7 @@ on:
           - dev
           - prod
 
-permissions: read-all
+permissions: write-all
 
 jobs:
   build-backend:
@@ -41,6 +41,7 @@ jobs:
 
       - name: Determine type
         id: determine_type
+        shell: bash
         run: |
           TYPE="unknown"
           if [[ "${{ github.ref_name }}" == "main" ]]; then
