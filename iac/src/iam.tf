@@ -24,7 +24,10 @@ resource "aws_iam_policy" "backend" {
       {
         Action   = "ssm:GetParameter"
         Effect   = "Allow"
-        Resource = aws_ssm_parameter.backend_configuration.arn
+        Resource = [
+          aws_ssm_parameter.backend_configuration.arn,
+          aws_ssm_parameter.github_token.arn
+        ]
       },
       {
         Action   = ["ec2:Describe*"],

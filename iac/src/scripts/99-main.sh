@@ -9,6 +9,7 @@ set_env_from_ec2_tag
 get_ssm_configuration
 
 # Setup backend dependencies
+install_gh_cli &
 setup_persistence_volume &
 setup_service_user &
 wait

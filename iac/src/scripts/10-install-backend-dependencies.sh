@@ -130,3 +130,12 @@ setup_certificate() {
 
     echo "Certificate setup successfully."
 }
+
+install_gh_cli() {
+    type -p yum-config-manager >/dev/null || yum install yum-utils -y
+    yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+    yum install gh -y
+    echo "$GITHUB_TOKEN" > /tmp/github_token.txt
+    gh auth login --with-token < /tmp/github_token.txt
+    rm -f /tmp/github_token.txt
+}

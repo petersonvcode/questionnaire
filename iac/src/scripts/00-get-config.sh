@@ -55,6 +55,7 @@ get_ssm_configuration() {
     PERSISTENCE_VOLUME_DEVICE_NAME=$(echo "$config" | jq -r '.persistence_volume_device_name')
     PERSISTENCE_MOUNT_DIR=$(echo "$config" | jq -r '.persistence_mount_dir')
     DATABASE_DIR=$(echo "$config" | jq -r '.database_dir')
+    LOGS_DIR=$(echo "$config" | jq -r '.logs_dir')
     APP_DIR=$(echo "$config" | jq -r '.app_dir')
 
     # Ensuring all variables are set
@@ -78,11 +79,27 @@ get_ssm_configuration() {
         exit 1
     }
     export DATABASE_DIR
+    test -n "$LOGS_DIR" || {
+        echo "LOGS_DIR not found. Aborting."
+        exit 1
+    }
+    export LOGS_DIR
     test -n "$APP_DIR" || {
         echo "APP_DIR not found. Aborting."
         exit 1
     }
     export APP_DIR
+
+    # Getting github token from Parameter Store
+    GITHUB_TOKEN=`aws ssm get-parameter \
+        --name "q-github-token-${ENV}" \
+        --query "Parameter.Value" \
+        --output text 2>/dev/null`
+    test -n "$GITHUB_TOKEN" || {
+        echo "GITHUB_TOKEN not found. Aborting."
+        exit 1
+    }
+    export GITHUB_TOKEN
     
     echo Set configuration as environment variables
 }
