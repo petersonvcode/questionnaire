@@ -1,0 +1,73 @@
+name: Build backend
+run-name: Build Backend
+description: Will build the backend for the environment.
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: The environment to deploy the backend to
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
+
+permissions: write-all
+
+jobs:
+  build-backend:
+    runs-on: self-hosted
+    environment: ${{ inputs.environment }}
+    container: 
+      image: ${{ vars.WORKFLOW_IMAGE_REPO }}:latest
+      volumes:
+        - /home/agent/.aws:/github/home/.aws
+        - /root/.cache/go-build:/root/.cache/go-build
+        - /go/pkg/mod:/go/pkg/mod
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            backend
+
+      - name: Build backend
+        shell: bash
+        run: |
+          cd backend
+          make build
+
+      - name: Determine type
+        id: determine_type
+        shell: bash
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+        run: |
+          TYPE="unknown"
+          if [[ "${{ env.ENVIRONMENT }}" == "prod" ]]; then
+            TYPE="latest"
+          elif [[ "${{ github.ref_name }}" == "develop" && "${{ env.ENVIRONMENT }}" == "dev" ]]; then
+            TYPE="experimental"
+          else
+            # Assume feature branch: add random suffix
+            RANDOM_SUFFIX=$(head /dev/urandom | tr -dc a-z0-9 | head -c6)
+            TYPE="feature-${RANDOM_SUFFIX}"
+          fi
+          echo type: $TYPE
+          echo "TYPE=$TYPE" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }} ${{ steps.determine_type.outputs.TYPE }}
+          tag_name: ${{ steps.determine_type.outputs.TYPE }}
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: false
+          files: |
+            backend/bin/webserver
+          body: Release of backend version ${{ github.ref_name }} ${{ steps.determine_type.outputs.TYPE }}

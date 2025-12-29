@@ -36,6 +36,8 @@ resource "aws_instance" "backend" {
   metadata_options {
     instance_metadata_tags = "enabled"
   }
+
+  depends_on = [ aws_s3_bucket.server_assets ]
 }
 
 data "aws_ami" "amazon2" {
@@ -96,6 +98,16 @@ resource "aws_security_group_rule" "allow_ssh_ingress" {
   lifecycle {
     ignore_changes = [cidr_blocks]
   }
+}
+
+resource "aws_security_group_rule" "allow_vps_access_to_backend" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["172.62.106.70/32"]
+  security_group_id = aws_security_group.allow_ssh.id
+  description       = "Allow SSH from VPS machine. Required for automated deployments."
 }
 
 resource "aws_security_group" "backend" {

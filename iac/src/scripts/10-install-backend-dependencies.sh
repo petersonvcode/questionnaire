@@ -2,10 +2,26 @@
 
 # Creates the service user/group used by the backend service
 setup_service_user() {
-    useradd --system --no-create-home --shell /bin/false $APP_USER
+    useradd --system --shell /bin/bash $APP_USER
     groupadd $APP_GROUP
     usermod -a -G $APP_GROUP ec2-user
     usermod -a -G $APP_GROUP $APP_USER
+
+    # SSH Setup
+    PUB_KEY=`aws ssm get-parameter \
+        --name q-backend-ssh-pub-key-${ENV} \
+        --query "Parameter.Value" \
+        --output text 2>/dev/null`
+    test -n "$PUB_KEY" || {
+        echo "ERROR: Failed to get SSH public key from Parameter Store"
+        exit 1
+    }
+    echo "SSH public key: $PUB_KEY"
+    mkdir -p /home/$APP_USER/.ssh
+    chmod 700 /home/$APP_USER/.ssh
+    touch /home/$APP_USER/.ssh/authorized_keys
+    chmod 600 /home/$APP_USER/.ssh/authorized_keys
+    echo "$PUB_KEY" > /home/$APP_USER/.ssh/authorized_keys
 
     echo "Service user $APP_USER created successfully."
     echo "Service group $APP_GROUP created successfully."
@@ -61,6 +77,19 @@ get_security_group_id() {
 # Sets up HTTPS certificate using certbot and http verification
 setup_certificate() {
     echo "Setting up certificate..."
+
+    get_certificate_from_s3 || {
+        echo "Failed to get certificate from S3. Creating new certificate..."
+        new_certbot_certificate
+        save_certificate_to_s3
+        echo "New certificate created and saved to S3."
+    }
+
+    echo "Certificate setup successfully."
+}
+
+new_certbot_certificate() {
+    echo "Creating new certbot certificate..."
 
     get_security_group_id
 
@@ -126,9 +155,15 @@ setup_certificate() {
     chmod -R 755 /etc/letsencrypt
     chmod g+rwx /etc/letsencrypt
 
-    echo "Certbot setup complete"
+    echo "New certbot certificate created successfully."
+}
 
-    echo "Certificate setup successfully."
+get_certificate_from_s3() {
+    aws s3 cp s3://$SERVER_ASSETS_BUCKET/certs/$CERTBOT_DOMAIN/fullchain.pem /etc/letsencrypt/live/$CERTBOT_DOMAIN/fullchain.pem
+}
+
+save_certificate_to_s3() {
+    aws s3 cp /etc/letsencrypt/live/$CERTBOT_DOMAIN/fullchain.pem s3://$SERVER_ASSETS_BUCKET/certs/$CERTBOT_DOMAIN/fullchain.pem
 }
 
 install_gh_cli() {

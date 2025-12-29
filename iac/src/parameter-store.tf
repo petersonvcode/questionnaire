@@ -9,6 +9,7 @@ resource "aws_ssm_parameter" "backend_configuration" {
     database_dir                   = "/persistent/db"
     logs_dir                       = "/persistent/logs"
     app_dir                        = "/q"
+    server_assets_bucket           = aws_s3_bucket.server_assets.bucket
   })
 }
 
@@ -21,4 +22,11 @@ resource "aws_ssm_parameter" "github_token" {
   lifecycle {
     ignore_changes = [value]
   }
+}
+
+resource "aws_ssm_parameter" "backend_ssh_pub_key" {
+  name = "q-backend-ssh-pub-key-${var.environment}"
+  type = "String"
+
+  value = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN5ToLhK3EecKfkJkZOjb+9n2AGD44IiEuqHWjavYE5H q-user@questionnaire.com"
 }

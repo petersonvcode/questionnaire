@@ -3,6 +3,9 @@
 # Gets the environment from the EC2 tag 'environment'
 # Gets the region from the EC2 instance identity document
 # Will set those values as the environment variables ENV and REGION
+# Also sets the following environment variables:
+# - APP_USER
+# - APP_GROUP
 set_env_from_ec2_tag() {
     EC2_TOKEN=`curl -s "http://169.254.169.254/latest/api/token" \
         -X PUT \
@@ -57,6 +60,7 @@ get_ssm_configuration() {
     DATABASE_DIR=$(echo "$config" | jq -r '.database_dir')
     LOGS_DIR=$(echo "$config" | jq -r '.logs_dir')
     APP_DIR=$(echo "$config" | jq -r '.app_dir')
+    SERVER_ASSETS_BUCKET=$(echo "$config" | jq -r '.server_assets_bucket')
 
     # Ensuring all variables are set
     test -n "$BACKEND_DOMAIN" || {
@@ -89,6 +93,11 @@ get_ssm_configuration() {
         exit 1
     }
     export APP_DIR
+    test -n "$SERVER_ASSETS_BUCKET" || {
+        echo "SERVER_ASSETS_BUCKET not found. Aborting."
+        exit 1
+    }
+    export SERVER_ASSETS_BUCKET
 
     # Getting github token from Parameter Store
     GITHUB_TOKEN=`aws ssm get-parameter \

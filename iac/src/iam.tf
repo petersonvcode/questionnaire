@@ -42,6 +42,17 @@ resource "aws_iam_policy" "backend" {
         Effect   = "Allow"
         Resource = aws_security_group.backend.arn
       },
+      {
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+        ]
+        Effect   = "Allow"
+        Resource = [
+          aws_s3_bucket.server_assets.arn,
+          "${aws_s3_bucket.server_assets.arn}/*",
+        ]
+      }
     ]
   })
 }
