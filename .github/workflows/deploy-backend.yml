@@ -58,7 +58,7 @@ jobs:
           USER: q-user
           ENV: ${{ inputs.environment }}
         run: |
-          ssh -i ~/.ssh/id_ed25519 $USER@$SERVER_ADDRESS 'bash -s' <<EOF
+          ssh -i ~/.ssh/id_ed25519 $USER@$SERVER_ADDRESS -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null 'bash -s' <<EOF
             echo inside the ssh session
 
             GITHUB_TOKEN=`aws ssm get-parameter \

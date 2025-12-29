@@ -105,7 +105,7 @@ resource "aws_security_group_rule" "allow_vps_access_to_backend" {
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
-  cidr_blocks       = ["172.62.106.70/32"]
+  cidr_blocks       = ["72.62.106.70/32"]
   security_group_id = aws_security_group.allow_ssh.id
   description       = "Allow SSH from VPS machine. Required for automated deployments."
 }
