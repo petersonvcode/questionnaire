@@ -30,10 +30,10 @@ jobs:
           TYPE="unknown"
           if [[ "${{ env.ENVIRONMENT }}" == "prod" ]]; then
               TYPE="latest"
-              SERVER_ADDRESS="q-backend.questionnaire.petersonv.click"
+              SERVER_ADDRESS="q-backend.petersonv.click"
           elif [[ "${{ github.ref_name }}" == "develop" && "${{ env.ENVIRONMENT }}" == "dev" ]]; then
               TYPE="experimental"
-              SERVER_ADDRESS="q-backend.dev.questionnaire.petersonv.click"
+              SERVER_ADDRESS="q-backend.dev.petersonv.click"
           else
               echo "ERROR: Invalid environment: ${{ env.ENVIRONMENT }}"
               exit 1
