@@ -79,6 +79,7 @@ jobs:
               echo "GH_TOKEN not found. Aborting."
               exit 1
             fi
+            export GH_TOKEN
 
             sudo systemctl stop q-webserver-${ENV}
             mv /q/webserver /q/webserver.old || echo missing old deployment file
