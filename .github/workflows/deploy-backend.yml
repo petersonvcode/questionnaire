@@ -65,6 +65,7 @@ jobs:
             "ENV=$ENV bash -s" <<'EOF'
             echo inside the ssh session
             echo $ENV
+            export ENV
             set -e
 
             # Ensure ENV is set
