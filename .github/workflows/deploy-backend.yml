@@ -75,7 +75,7 @@ jobs:
               --name "q-github-token-${ENV}" \
               --query "Parameter.Value" \
               --output text 2>/dev/null || echo error)
-            if [ "$GGH_TOKEN" = "error" ] || [ -z "$GH_TOKEN" ]; then
+            if [ "$GH_TOKEN" = "error" ] || [ -z "$GH_TOKEN" ]; then
               echo "GH_TOKEN not found. Aborting."
               exit 1
             fi
