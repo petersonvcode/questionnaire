@@ -68,6 +68,7 @@ get_ssm_configuration() {
         exit 1
     }
     export BACKEND_DOMAIN
+    export CERTBOT_DOMAIN="$BACKEND_DOMAIN"
     test -n "$PERSISTENCE_VOLUME_DEVICE_NAME" || {
         echo "PERSISTENCE_VOLUME_DEVICE_NAME not found. Aborting."
         exit 1

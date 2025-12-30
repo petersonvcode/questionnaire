@@ -2,8 +2,8 @@
 
 # Creates the service user/group used by the backend service
 setup_service_user() {
-    useradd --system --shell /bin/bash $APP_USER
-    groupadd $APP_GROUP
+    useradd --system --shell /bin/bash $APP_USER || echo "User $APP_USER already exists"
+    groupadd $APP_GROUP || echo "Group $APP_GROUP already exists"
     usermod -a -G $APP_GROUP ec2-user
     usermod -a -G $APP_GROUP $APP_USER
 
@@ -11,17 +11,19 @@ setup_service_user() {
     PUB_KEY=`aws ssm get-parameter \
         --name q-backend-ssh-pub-key-${ENV} \
         --query "Parameter.Value" \
-        --output text 2>/dev/null`
-    test -n "$PUB_KEY" || {
+        --output text 2>/dev/null || echo error`
+    if [ "$PUB_KEY" = "error" ] || [ -z "$PUB_KEY" ]; then
         echo "ERROR: Failed to get SSH public key from Parameter Store"
         exit 1
-    }
+    fi
     echo "SSH public key: $PUB_KEY"
     mkdir -p /home/$APP_USER/.ssh
+    chown $APP_USER:$APP_GROUP /home/$APP_USER/.ssh
     chmod 700 /home/$APP_USER/.ssh
     touch /home/$APP_USER/.ssh/authorized_keys
+    chown $APP_USER:$APP_GROUP /home/$APP_USER/.ssh/authorized_keys
     chmod 600 /home/$APP_USER/.ssh/authorized_keys
-    echo "$PUB_KEY" > /home/$APP_USER/.ssh/authorized_keys
+    echo "$PUB_KEY" >> /home/$APP_USER/.ssh/authorized_keys
 
     echo "Service user $APP_USER created successfully."
     echo "Service group $APP_GROUP created successfully."
@@ -134,7 +136,6 @@ new_certbot_certificate() {
     /opt/certbot/bin/pip install certbot
     ln -sf /opt/certbot/bin/certbot /usr/bin/certbot
 
-    export CERTBOT_DOMAIN="$BACKEND_DOMAIN"
     export CERTBOT_EMAIL="petersonvgama@gmail.com"
     if [ -z "$CERTBOT_EMAIL" ]; then
         echo "ERROR: CERTBOT_EMAIL not set; export CERTBOT_EMAIL for unattended issuance"; exit 1

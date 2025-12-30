@@ -26,7 +26,8 @@ resource "aws_iam_policy" "backend" {
         Effect   = "Allow"
         Resource = [
           aws_ssm_parameter.backend_configuration.arn,
-          aws_ssm_parameter.github_token.arn
+          aws_ssm_parameter.github_token.arn,
+          aws_ssm_parameter.backend_ssh_pub_key.arn,
         ]
       },
       {
@@ -46,6 +47,10 @@ resource "aws_iam_policy" "backend" {
         Action = [
           "s3:GetObject",
           "s3:PutObject",
+          "s3:HeadObject",
+          "s3:ListBucket",
+          "s3:GetBucketLocation",
+          "s3:GetBucketAcl",
         ]
         Effect   = "Allow"
         Resource = [
