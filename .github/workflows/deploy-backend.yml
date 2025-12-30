@@ -64,17 +64,18 @@ jobs:
             $USER@$SERVER_ADDRESS \
             "ENV=$ENV bash -s" <<'EOF'
             echo inside the ssh session
+            echo $ENV
             set -e
 
             # Ensure ENV is set
             : "${ENV:?ENV variable not set on remote host}"
 
-            GITHUB_TOKEN=$(aws ssm get-parameter \
+            GH_TOKEN=$(aws ssm get-parameter \
               --name "q-github-token-${ENV}" \
               --query "Parameter.Value" \
               --output text 2>/dev/null || echo error)
-            if [ "$GITHUB_TOKEN" = "error" ] || [ -z "$GITHUB_TOKEN" ]; then
-              echo "GITHUB_TOKEN not found. Aborting."
+            if [ "$GGH_TOKEN" = "error" ] || [ -z "$GH_TOKEN" ]; then
+              echo "GH_TOKEN not found. Aborting."
               exit 1
             fi
 
