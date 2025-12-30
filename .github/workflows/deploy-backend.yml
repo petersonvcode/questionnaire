@@ -72,11 +72,11 @@ jobs:
             GITHUB_TOKEN=$(aws ssm get-parameter \
               --name "q-github-token-${ENV}" \
               --query "Parameter.Value" \
-              --output text 2>/dev/null)
-            test -n "$GITHUB_TOKEN" || {
+              --output text 2>/dev/null || echo error)
+            if [ "$GITHUB_TOKEN" = "error" ] || [ -z "$GITHUB_TOKEN" ]; then
               echo "GITHUB_TOKEN not found. Aborting."
               exit 1
-            }
+            fi
 
             sudo systemctl stop q-webserver-${ENV}
             mv /q/webserver /q/webserver.old
