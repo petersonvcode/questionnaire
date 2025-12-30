@@ -81,12 +81,12 @@ jobs:
             fi
 
             sudo systemctl stop q-webserver-${ENV}
-            mv /q/webserver /q/webserver.old
+            mv /q/webserver /q/webserver.old || echo missing old deployment file
             gh release download latest \
               -R petersonvcode/questionnaire \
               -p webserver \
               -O /q/webserver
             chmod +x /q/webserver
             sudo systemctl start q-webserver-${ENV}
-            rm -f /q/webserver.old
+            rm -f /q/webserver.old || echo missing old webserver
           EOF
