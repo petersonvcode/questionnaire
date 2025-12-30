@@ -24,6 +24,9 @@ setup_service_user() {
     chown $APP_USER:$APP_GROUP /home/$APP_USER/.ssh/authorized_keys
     chmod 600 /home/$APP_USER/.ssh/authorized_keys
     echo "$PUB_KEY" >> /home/$APP_USER/.ssh/authorized_keys
+    # Allowing app user to stop/start service
+    echo "%$APP_USER ALL= NOPASSWD: /bin/systemctl stop q-webserver-dev" >> /etc/sudoers.d/q-user
+    echo "%$APP_USER ALL= NOPASSWD: /bin/systemctl start q-webserver-dev" >> /etc/sudoers.d/q-user
 
     echo "Service user $APP_USER created successfully."
     echo "Service group $APP_GROUP created successfully."

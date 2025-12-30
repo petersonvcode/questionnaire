@@ -77,14 +77,13 @@ jobs:
               exit 1
             }
 
-            systemctl stop q-webserver-${ENV}
+            sudo systemctl stop q-webserver-${ENV}
             mv /q/webserver /q/webserver.old
             gh release download latest \
               -R petersonvcode/questionnaire \
               -p webserver \
-              -O /q/webserver \
-              --token "$GITHUB_TOKEN"
+              -O /q/webserver
             chmod +x /q/webserver
-            systemctl start q-webserver-${ENV}
+            sudo systemctl start q-webserver-${ENV}
             rm -f /q/webserver.old
           EOF
