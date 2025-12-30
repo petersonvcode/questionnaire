@@ -58,13 +58,21 @@ jobs:
           USER: q-user
           ENV: ${{ inputs.environment }}
         run: |
-          ssh -i ~/.ssh/id_ed25519 $USER@$SERVER_ADDRESS -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null 'bash -s' <<EOF
+          ssh -i ~/.ssh/id_ed25519 \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -o SendEnv=ENV \
+            $USER@$SERVER_ADDRESS \
+            'bash -s' <<'EOF'
             echo inside the ssh session
 
-            GITHUB_TOKEN=`aws ssm get-parameter \
+            # Ensure ENV is set (imported from ssh client)
+            : "${ENV:?ENV variable not set on remote host}"
+
+            GITHUB_TOKEN=$(aws ssm get-parameter \
               --name "q-github-token-${ENV}" \
               --query "Parameter.Value" \
-              --output text 2>/dev/null`
+              --output text 2>/dev/null)
             test -n "$GITHUB_TOKEN" || {
               echo "GITHUB_TOKEN not found. Aborting."
               exit 1
