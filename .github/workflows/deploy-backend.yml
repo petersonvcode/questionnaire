@@ -61,12 +61,11 @@ jobs:
           ssh -i ~/.ssh/id_ed25519 \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -o SendEnv=ENV \
             $USER@$SERVER_ADDRESS \
-            'bash -s' <<'EOF'
+            "ENV=$ENV bash -s" <<'EOF'
             echo inside the ssh session
 
-            # Ensure ENV is set (imported from ssh client)
+            # Ensure ENV is set
             : "${ENV:?ENV variable not set on remote host}"
 
             GITHUB_TOKEN=$(aws ssm get-parameter \
