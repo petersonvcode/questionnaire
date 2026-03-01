@@ -179,6 +179,51 @@ const disableConfirmButton = () => {
     confirmButton.disabled = true;
 }
 
+const removeConfirmButton = () => {
+  const confirmButton = document.getElementById('confirm-question-btn');
+  if (confirmButton && confirmButton instanceof HTMLButtonElement)
+    confirmButton.remove();
+}
+
+const addConfirmButton = () => {
+  const confirmButton = document.getElementById('confirm-question-btn');
+  if (confirmButton && confirmButton instanceof HTMLButtonElement) {
+    console.log('Confirm button already exists');
+    return;
+  }
+
+  const button = document.createElement('button');
+  button.id = 'confirm-question-btn';
+  button.textContent = 'Confirmar';
+  button.addEventListener('click', confirmQuestion);
+  document.getElementById('buttons-container')?.appendChild(button);
+}
+
+const addNextQuestionButton = () => {
+  const nextButton = document.getElementById('next-question-btn');
+  if (nextButton && nextButton instanceof HTMLButtonElement) {
+    console.log('Next button already exists');
+    return;
+  }
+
+  const button = document.createElement('button');
+  button.id = 'next-question-btn';
+  button.textContent = 'Próxima questão';
+  button.addEventListener('click', () => {
+    unloadQuestion()
+    removeNextQuestionButton()
+    addConfirmButton()
+    getRandomQuestion().then(q => loadQuestion(q, true)).catch(console.error);
+  });
+  document.getElementById('buttons-container')?.appendChild(button);
+}
+
+const removeNextQuestionButton = () => {
+  const nextButton = document.getElementById('next-question-btn');
+  if (nextButton && nextButton instanceof HTMLButtonElement)
+    nextButton.remove();
+}
+
 export const confirmQuestion = () => {
   if (!isRandomQuestion)
     throw new Error('Not implemented');
@@ -198,6 +243,7 @@ export const confirmQuestion = () => {
     const qOption = currentQuestion?.options.find(o => o.id === option.value);
 
     option.parentElement?.classList.add(qOption?.correct ? 'q-op-correct' : 'q-op-incorrect');
-    disableConfirmButton()
+    removeConfirmButton()
+    addNextQuestionButton()
   }
 }
