@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/index.css">
     <title>Questionnaire</title>
     <script type="module" src="/index.ts"></script>
 </head>
+
 <body>
-    <h1>Questionnaire</h1>
+    <h1 id="title">Questões</h1>
+    <div id="main-button-container">
+        <button disabled>Provas</button>
+        <button disabled>Temas</button>
+        <button id="main-random-btn">Aleatório</button>
+    </div>
+
+    <div id="answers-container">
+        <div id="question-text">Carregando...</div>
+        <div id="options-container"></div>
+        <div id="buttons-container">
+            <button id="go-to-main-btn">Voltar</button>
+            <button id="confirm-question-btn" disabled>Confirmar</button>
+        </div>
+    </div>
 </body>
+
 </html>

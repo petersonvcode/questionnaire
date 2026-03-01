@@ -1,0 +1,136 @@
+:root {
+  --graphite: #303236ff;
+  --grey-olive: #80898dff;
+  --pale-slate: #cccad9ff;
+  --lavender-grey: #a4a4b2ff;
+  --rosy-granite: #918695ff;
+  --dusty-olive: #7E9181;
+  --deep-purple: #2c2c8f;
+  --deep-purple-hover: #3C3CC3;
+  --deep-purple-active: #1C1C5A;
+  --deep-purple-disabled: #5E5589;
+  --rounded-corners: 12px;
+}
+
+html {
+  background-color: var(--lavender-grey);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  font-family: 'Courier New', monospace;
+}
+
+button {
+  background-color: var(--deep-purple);
+  color: var(--pale-slate);
+  border: 3px solid var(--graphite);
+  border-radius: var(--rounded-corners);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--deep-purple-hover);
+    border: 3px solid var(--graphite);
+  }
+
+  &:active {
+    background-color: var(--deep-purple-active);
+    border: 3px solid var(--graphite);
+  }
+
+  &:disabled {
+    background-color: var(--deep-purple-disabled);
+    border: 3px solid var(--graphite);
+    cursor: not-allowed;
+  }
+}
+
+#main-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  width: 90vw;
+  margin-top: 30px;
+  gap: 12px;
+
+  >button {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+  }
+}
+
+#answers-container {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90vw;
+  height: 85vh;
+  color: var(--graphite);
+  padding: 16px;
+
+  #question-text {
+    height: 45vh;
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+
+  #options-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 8px;
+    height: 25vh;
+    max-height: 25vh;
+    overflow-y: auto;
+
+    >div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: end;
+      width: 100%;
+      
+      label {
+        margin-left: 8px;
+      }
+
+      input {
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  #buttons-container {
+    display: flex;
+    align-items: end;
+    flex-direction: row;
+    gap: 8px;
+    height: 10vh;
+
+    >button {
+      width: 100%;
+      height: 60px;
+    }
+  }
+}
+
+.q-op-correct {
+  background-color: var(--dusty-olive);
+}
+
+.q-op-incorrect {
+  background-color: var(--rosy-granite);
+}
