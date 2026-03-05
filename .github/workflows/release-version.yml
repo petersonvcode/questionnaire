@@ -30,14 +30,14 @@ jobs:
           # Setup NodeJS
           NODE_VERSION=$(cat frontend/.nvmrc | tr -d 'vV')
           echo "Node version: $NODE_VERSION"
-          wget https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz -O node.tar.gz
+          wget https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -O go.tar.gz
           tar -xzf node.tar.gz
           mv node-v${NODE_VERSION}-linux-x64 /opt/nodejs
           PATH="/opt/nodejs/bin:$PATH"
 
           # Install project dependencies
           cd frontend
-          pnpm install
+          npm install
 
       - name: Bundle frontend
         run: |
