@@ -61,10 +61,10 @@ jobs:
           GO_VERSION=$(grep go backend/go.mod | head -1 | cut -d' ' -f2)
           echo "Go version: $GO_VERSION"
 
-          wget https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -O go.tar.gz
-          tar -xzf go.tar.gz
-          mv go /opt/go
-          PATH="/opt/go/bin:$PATH"
+          # wget https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -O go.tar.gz
+          # tar -xzf go.tar.gz
+          # mv go /opt/go
+          # PATH="/opt/go/bin:$PATH"
 
           # Install project dependencies
           cd backend
