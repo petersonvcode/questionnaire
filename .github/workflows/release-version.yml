@@ -1,0 +1,75 @@
+name: Release Version
+run-name: Release Version
+description: Will release a new version of the backend.
+
+on:
+  push:
+    branches:
+      - main
+
+permissions: write-all
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            frontend
+
+      - name: Install dependencies
+        run: |
+          # Setup minhtml, a tool to minify HTML files
+          wget https://github.com/wilsonzlin/minify-html/releases/download/v0.18.1/minhtml-0.18.1-x86_64-unknown-linux-gnu -O minhtml
+          chmod +x minhtml
+          mv minhtml /usr/local/bin/minhtml
+
+          # Setup NodeJS
+          NODE_VERSION=$(cat frontend/.nvmrc | tr -d 'vV')
+          echo "Node version: $NODE_VERSION"
+          wget https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz -O node.tar.gz
+          tar -xzf node.tar.gz
+          mv node-v${NODE_VERSION}-linux-x64 /opt/nodejs
+          PATH="/opt/nodejs/bin:$PATH"
+
+          # Install project dependencies
+          cd frontend
+          pnpm install
+
+      - name: Bundle frontend
+        run: |
+          cd frontend
+          npm run build
+          npm run bundle
+
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            backend
+
+      - name: Install dependencies
+        run: |
+          # Installing go
+
+          GO_VERSION=$(grep go backend/go.mod | head -1 | cut -d' ' -f2)
+          echo "Go version: $GO_VERSION"
+          wget https://go.dev/dl/go${GO_VERSION}.linux-x64.tar.gz -O go.tar.gz
+          tar -xzf go.tar.gz
+          mv go /opt/go
+          PATH="/opt/go/bin:$PATH"
+
+          # Install project dependencies
+          cd backend
+          go mod download
+
+      - name: Build backend
+        run: |
+          cd backend
+          make build

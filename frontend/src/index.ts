@@ -1,4 +1,5 @@
 import { confirmQuestion, getRandomQuestion, loadQuestion, unloadQuestion } from "./questions";
+import './index.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Adding event listeners to main page buttons
