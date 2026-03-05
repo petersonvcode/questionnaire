@@ -11,9 +11,16 @@ import (
 
 func (s *Server) SetupRoutes() http.Handler {
 	mux := http.NewServeMux()
+	mux.HandleFunc("GET /health", s.healthHandler)
 	mux.HandleFunc("/questions", s.questionsHandler)
 	mux.HandleFunc("/questions/{id}", s.questionHandler)
-	return mux
+	return s.corsMiddleware(mux)
+}
+
+func (s *Server) healthHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
 }
 
 func (s *Server) questionsHandler(w http.ResponseWriter, r *http.Request) {

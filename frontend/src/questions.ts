@@ -1,10 +1,10 @@
 export type Question = {
-  id: string;
+  id: number;
   text: string;
   type: 'single-choice';
   tags: string[];
   options: {
-    id: string;
+    id: number;
     text: string;
     correct: boolean;
   }[];
@@ -33,7 +33,7 @@ export const loadQuestion = (question: Question, isRandom: boolean = false) => {
     const input = document.createElement('input');
     input.type = 'radio';
     input.name = 'q-op';
-    input.value = option.id;
+    input.value = option.id.toString();
     input.id = `q-op-${i}`;
     input.classList.add('q-op-input');
     input.addEventListener('change', enableConfirmButton);
@@ -68,103 +68,13 @@ export const unloadQuestion = () => {
 }
 
 export const getRandomQuestion = async (): Promise<Question> => {
-  // TODO change to actual API call
-  const rndWait = Math.floor(Math.random() * 1000) + 500;
-  await new Promise(resolve => setTimeout(resolve, rndWait));
-  
-  const questions: Question[] = [
-    {
-      id: '1',
-      text: 'What is the capital of France?',
-      type: 'single-choice',
-      tags: ['geography', 'world'],
-      options: [
-        { id: '1', text: 'Paris', correct: true },
-        { id: '2', text: 'London', correct: false },
-        { id: '3', text: 'Berlin', correct: false },
-      ],
-    },
-    {
-      id: '2',
-      text: 'Which planet is known as the Red Planet?',
-      type: 'single-choice',
-      tags: ['science', 'space'],
-      options: [
-        { id: '1', text: 'Venus', correct: false },
-        { id: '2', text: 'Mars', correct: true },
-        { id: '3', text: 'Jupiter', correct: false },
-      ],
-    },
-    {
-      id: '3',
-      text: 'Who wrote "Romeo and Juliet"?',
-      type: 'single-choice',
-      tags: ['literature', 'authors'],
-      options: [
-        { id: '1', text: 'William Shakespeare', correct: true },
-        { id: '2', text: 'Charles Dickens', correct: false },
-        { id: '3', text: 'Jane Austen', correct: false },
-      ],
-    },
-    {
-      id: '4',
-      text: 'What is the chemical symbol for water?',
-      type: 'single-choice',
-      tags: ['science', 'chemistry'],
-      options: [
-        { id: '1', text: 'O2', correct: false },
-        { id: '2', text: 'CO2', correct: false },
-        { id: '3', text: 'H2O', correct: true },
-      ],
-    },
-    {
-      id: '5',
-      text: 'Which continent is Egypt located in?',
-      type: 'single-choice',
-      tags: ['geography', 'world'],
-      options: [
-        { id: '1', text: 'Asia', correct: false },
-        { id: '2', text: 'Africa', correct: true },
-        { id: '3', text: 'Europe', correct: false },
-      ],
-    },
-    {
-      id: '6',
-      text: 'What is the largest mammal in the world?',
-      type: 'single-choice',
-      tags: ['biology', 'animals'],
-      options: [
-        { id: '1', text: 'Elephant', correct: false },
-        { id: '2', text: 'Blue Whale', correct: true },
-        { id: '3', text: 'Giraffe', correct: false },
-      ],
-    },
-    {
-      id: '7',
-      text: 'In what year did the World War II end?',
-      type: 'single-choice',
-      tags: ['history', '20th century'],
-      options: [
-        { id: '1', text: '1945', correct: true },
-        { id: '2', text: '1939', correct: false },
-        { id: '3', text: '1918', correct: false },
-      ],
-    },
-    {
-      id: '8',
-      text: 'Which element has the atomic number 1?',
-      type: 'single-choice',
-      tags: ['science', 'chemistry'],
-      options: [
-        { id: '1', text: 'Helium', correct: false },
-        { id: '2', text: 'Hydrogen', correct: true },
-        { id: '3', text: 'Carbon', correct: false },
-      ],
-    }
-  ];
-  
-  const randomIndex = Math.floor(Math.random() * questions.length);
-  return questions[randomIndex];
+  const url = 'http://localhost:8080/questions';
+
+  const response = await fetch(url);
+  if (!response.ok)
+    throw new Error('Failed to fetch random questions');
+  const question = await response.json() as Question;
+  return question;
 }
 
 const enableConfirmButton = () => {
@@ -240,7 +150,7 @@ export const confirmQuestion = () => {
       console.warn('Option is not a radio input');
       continue;
     }
-    const qOption = currentQuestion?.options.find(o => o.id === option.value);
+    const qOption = currentQuestion?.options.find(o => o.id === parseInt(option.value as string));
 
     option.parentElement?.classList.add(qOption?.correct ? 'q-op-correct' : 'q-op-incorrect');
     removeConfirmButton()

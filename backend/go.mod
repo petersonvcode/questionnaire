@@ -2,7 +2,10 @@ module github.com/petersonvcode/questionnaire/backend
 
 go 1.25.5
 
-require github.com/ncruces/go-sqlite3 v0.30.5
+require (
+	github.com/joho/godotenv v1.5.1
+	github.com/ncruces/go-sqlite3 v0.30.5
+)
 
 require (
 	github.com/ncruces/julianday v1.0.0 // indirect

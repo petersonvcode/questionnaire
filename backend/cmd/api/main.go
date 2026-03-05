@@ -2,6 +2,10 @@ package main
 
 import (
 	"log/slog"
+	"os"
+	"strings"
+
+	"github.com/joho/godotenv"
 
 	"github.com/petersonvcode/questionnaire/backend/internal/database"
 	"github.com/petersonvcode/questionnaire/backend/internal/repositories"
@@ -10,6 +14,8 @@ import (
 )
 
 func main() {
+	loadEnvFile()
+	AdjustLogLevel()
 	server := setupServerWithDependencies()
 	err := server.Start()
 	if err != nil {
@@ -34,4 +40,50 @@ func setupServerWithDependencies() *server.Server {
 
 	server := server.NewServer(8080, questionCreationService, questionRetrievalService, questionDeletionService)
 	return server
+}
+
+// Loads the environment variables from the .env and .env.<env> files
+// .env.<env> takes precedence over .env
+// Returns the environment variable ENV
+func loadEnvFile() string {
+	env := strings.ToLower(os.Getenv("ENV"))
+	if env == "" {
+		slog.Debug("ENV variable not set, defaulting to local")
+		env = "local"
+	}
+	slog.Debug("ENV: " + env)
+
+	// Loading environment variables from .env files
+	environmentEnvFile := ".env." + env
+	slog.Debug("loading environment variables from file", "environmentEnvFile", environmentEnvFile, "also", ".env")
+
+	// Load .env file first
+	godotenv.Load()
+	// Then load the environment-specific file
+	godotenv.Load(environmentEnvFile)
+	slog.Debug("loaded environment variables from file", "environmentEnvFile", environmentEnvFile, "also", ".env")
+
+	return env
+}
+
+func AdjustLogLevel() {
+	logLevel := &slog.LevelVar{}
+	logLevel.Set(slog.LevelInfo)
+
+	if levelStr := os.Getenv("LOG_LEVEL"); levelStr != "" {
+		slog.Debug("LOG_LEVEL: " + levelStr)
+		switch strings.ToUpper(levelStr) {
+		case "DEBUG":
+			logLevel.Set(slog.LevelDebug)
+		case "INFO":
+			logLevel.Set(slog.LevelInfo)
+		case "WARN":
+			logLevel.Set(slog.LevelWarn)
+		case "ERROR":
+			logLevel.Set(slog.LevelError)
+		}
+	}
+
+	opts := &slog.HandlerOptions{Level: logLevel}
+	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stdout, opts)))
 }

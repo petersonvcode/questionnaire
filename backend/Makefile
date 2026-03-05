@@ -5,10 +5,14 @@ build:
 	@chmod +x bin/webserver
 
 run:
-	@go run cmd/api/main.go
+	@if [ -n "$$ENV" ]; then ENV=$$ENV go run cmd/api/main.go; else echo "ENV variable is not set"; fi
+
+run-local:
+	@echo "Running backend in local environment..."
+	@ENV=local go run cmd/api/main.go
 
 dev:
-	@find . -type f | entr -r -s 'make run'
+	@find . -type f | entr -r -s 'make run-local'
 
 test:
 	@find . -type f -name '*.go' | entr -r -s 'clear; go test ./...'
