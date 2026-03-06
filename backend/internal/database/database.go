@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log/slog"
+	"os"
 	"strconv"
 	"time"
 
@@ -135,7 +136,7 @@ func (s *DatabaseService) QueryRow(query string, args ...any) *sql.Row {
 }
 
 func getDbUrl() string {
-	return "/home/pet/Work/repos/questionnaire/backend/questionnaire.db"
+	return os.Getenv("DATABASE_URL")
 }
 
 func (s *DatabaseService) Connect() error {
