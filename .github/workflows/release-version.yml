@@ -106,6 +106,8 @@ jobs:
           echo "$SSH_KEY" > ssh-key
           chmod 600 ssh-key
 
+          ls
+
           mv /deploy/index.min.html /deploy/index.html
 
           ssh -i ssh-key $SSH_USER@$SSH_HOST "mkdir -p /var/q/html"
