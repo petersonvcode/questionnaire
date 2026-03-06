@@ -80,6 +80,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: backend
+          include-hidden-files: true
           path: |
             backend/bin/webserver
             backend/.env
