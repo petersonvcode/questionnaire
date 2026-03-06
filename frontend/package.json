@@ -7,7 +7,7 @@
   "type": "commonjs",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build --emptyOutDir",
+    "build": "VITE_BACKEND_URL=https://q-back.petersonv.click vite build --emptyOutDir",
     "bundle": "./inline-assets.sh && minhtml dist/index.html > dist/index.min.html"
   },
   "devDependencies": {

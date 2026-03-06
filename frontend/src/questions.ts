@@ -67,8 +67,11 @@ export const unloadQuestion = () => {
   disableConfirmButton()
 }
 
+//@ts-ignore
+const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
+
 export const getRandomQuestion = async (): Promise<Question> => {
-  const url = 'http://localhost:8080/questions';
+  const url = `${baseUrl}/questions`;
 
   const response = await fetch(url);
   if (!response.ok)
