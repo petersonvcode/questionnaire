@@ -3,6 +3,7 @@ package main
 import (
 	"log/slog"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/joho/godotenv"
@@ -38,7 +39,16 @@ func setupServerWithDependencies() *server.Server {
 	questionRetrievalService := services.NewQuestionRetrievalService(questionRepository)
 	questionDeletionService := services.NewQuestionDeletionService(questionRepository)
 
-	server := server.NewServer(8080, questionCreationService, questionRetrievalService, questionDeletionService)
+	port := os.Getenv("QUESTIONNAIRE_PORT")
+	if port == "" {
+		port = "8080"
+	}
+	portInt, err := strconv.Atoi(port)
+	if err != nil {
+		slog.Error("Failed to convert port to int", "error", err)
+		panic(err)
+	}
+	server := server.NewServer(portInt, questionCreationService, questionRetrievalService, questionDeletionService)
 	return server
 }
 
