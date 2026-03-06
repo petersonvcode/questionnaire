@@ -97,16 +97,17 @@ jobs:
           name: backend
           path: webserver
 
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
       - name: SSH to VPS
         env:
           SSH_HOST: ${{ secrets.VPS_IP }}
           SSH_USER: root
-          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
           SSH_PORT: ${{ secrets.VPS_SSH_PORT }}
         run: |
-          echo "$SSH_KEY" > ssh-key
-          chmod 600 ssh-key
  
-          ssh -i ssh-key $SSH_USER@$SSH_HOST -p $SSH_PORT "mkdir -p /var/q/html"
-          scp -P $SSH_PORT -i ssh-key index.html $SSH_USER@$SSH_HOST:/var/q/html/
+          ssh $SSH_USER@$SSH_HOST -p $SSH_PORT "mkdir -p /var/q/html"
+          scp -P $SSH_PORT index.html $SSH_USER@$SSH_HOST:/var/q/html/
       
