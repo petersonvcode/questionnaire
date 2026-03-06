@@ -1,0 +1,15 @@
+[Unit]
+Description=Questionnaire backend API
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/q/backend
+ExecStart=/var/q/backend/webserver
+Restart=on-failure
+RestartSec=5
+Environment=ENV=prod
+
+[Install]
+WantedBy=multi-user.target
