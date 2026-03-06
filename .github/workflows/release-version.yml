@@ -103,11 +103,11 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           SSH_HOST: ${{ vars.VPS_IP }}
         run: |
-          echo "$SSH_KEY" > ~/.ssh/ssh-key
-          chmod 600 ~/.ssh/ssh-key
+          echo "$SSH_KEY" > ssh-key
+          chmod 600 ssh-key
 
           mv /deploy/index.min.html /deploy/index.html
 
-          ssh -i ~/.ssh/ssh-key $SSH_USER@$SSH_HOST "mkdir -p /var/q/html"
+          ssh -i ssh-key $SSH_USER@$SSH_HOST "mkdir -p /var/q/html"
           scp -r /deploy/index.html $SSH_USER@$SSH_HOST:/var/q/html/
       
