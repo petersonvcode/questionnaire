@@ -89,13 +89,13 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: frontend
-          path: /deploy
+          path: deploy
 
       - name: Download backend
         uses: actions/download-artifact@v5
         with:
           name: backend
-          path: /deploy
+          path: deploy
 
       - name: SSH to VPS
         env:
