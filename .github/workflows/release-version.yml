@@ -89,13 +89,13 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: frontend
-          path: index.html
+          path: frontend
 
       - name: Download backend
         uses: actions/download-artifact@v5
         with:
           name: backend
-          path: webserver
+          path: backend
 
       - uses: webfactory/ssh-agent@v0.9.0
         with:
@@ -116,6 +116,10 @@ jobs:
           SSH_PORT: ${{ secrets.VPS_SSH_PORT }}
         run: |
           set -x
-          ssh $SSH_USER@$SSH_HOST -p $SSH_PORT "mkdir -p /var/q/html"
-          scp -P $SSH_PORT index.html $SSH_USER@$SSH_HOST:/var/q/html/
+          ls
+          ls frontend
+          ls backend
+          ssh $SSH_USER@$SSH_HOST -p $SSH_PORT "mkdir -p /var/q/html /var/q/backend"
+          scp -P $SSH_PORT frontend/index.html $SSH_USER@$SSH_HOST:/var/q/html/
+          scp -P $SSH_PORT backend/webserver $SSH_USER@$SSH_HOST:/var/q/backend/
       
