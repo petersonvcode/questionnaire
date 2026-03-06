@@ -120,13 +120,12 @@ jobs:
           SSH_USER: root
           SSH_PORT: ${{ secrets.VPS_SSH_PORT }}
         run: |
-          ls
-          echo frontend:
-          ls frontend
-          echo backend:
-          ls backend
           ssh $SSH_USER@$SSH_HOST -p $SSH_PORT "mkdir -p /var/q/html /var/q/backend"
+          # Copy frontend files
           scp -P $SSH_PORT frontend/index.html $SSH_USER@$SSH_HOST:/var/q/html/
+
+          # Stop service and copy backend files
+          ssh $SSH_USER@$SSH_HOST -p $SSH_PORT "systemctl stop questionnaire"
           scp -P $SSH_PORT backend/bin/webserver $SSH_USER@$SSH_HOST:/var/q/backend/
           scp -P $SSH_PORT backend/.env $SSH_USER@$SSH_HOST:/var/q/backend/
           scp -P $SSH_PORT backend/deploy/questionnaire.service $SSH_USER@$SSH_HOST:/etc/systemd/system/
