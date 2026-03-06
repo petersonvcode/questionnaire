@@ -43,7 +43,7 @@ jobs:
           cd frontend
           npm run build
           npm run bundle
-          mv frontend/dist/index.min.html frontend/dist/index.html
+          mv dist/index.min.html dist/index.html
 
       - name: Archive frontend
         uses: actions/upload-artifact@v4
