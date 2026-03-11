@@ -9,6 +9,8 @@ type QuestionCreationService interface {
 type QuestionRetrievalService interface {
 	GetQuestionByID(id int64) (*domain.Question, error)
 	GetRandomQuestion() (*domain.Question, error)
+	GetTags() ([]domain.QuestionTagAPIResponse, error)
+	CountQuestionsWithTags(tagIDs []int64) (int, error)
 }
 
 type QuestionDeletionService interface {

@@ -12,16 +12,37 @@
     <h1 id="title">Questões</h1>
     <div id="main-button-container">
         <button disabled>Provas</button>
-        <button disabled>Temas</button>
+        <button id="themes-btn">Temas</button>
         <button id="main-random-btn">Aleatório</button>
     </div>
 
     <div id="answers-container">
         <div id="question-text">Carregando...</div>
         <div id="options-container"></div>
-        <div id="buttons-container">
-            <button id="go-to-main-btn">Voltar</button>
+        <div class="buttons-container">
+            <button class="go-to-main-btn">Voltar</button>
             <button id="confirm-question-btn" disabled>Confirmar</button>
+        </div>
+    </div>
+
+    <div id="select-themes-container">
+        <h3>Selecione os temas</h3>
+        <div id="themes-container">
+            <div id="themes-list">Carregando...</div>
+            <span id="q-available">Disponíveis: 0 </span>
+            <br/>
+            <span>Quantidade de questões:</span>
+            <div id="q-count">
+                <button class="q-count-btn">1</button>
+                <button class="q-count-btn">5</button>
+                <button class="q-count-btn">10</button>
+                <button class="q-count-btn">25</button>
+                <button class="q-count-btn">50</button>
+            </div>
+            <div class="buttons-container">
+                <button class="go-to-main-btn">Voltar</button>
+                <button id="confirm-tags-btn">Confirmar</button>
+            </div>
         </div>
     </div>
 </body>

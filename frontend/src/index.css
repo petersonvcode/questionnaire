@@ -53,6 +53,11 @@ button {
     border: 3px solid var(--graphite);
     cursor: not-allowed;
   }
+
+  &.selected {
+    background-color: var(--dusty-olive);
+    border: 3px solid var(--graphite);
+  }
 }
 
 #main-button-container {
@@ -77,7 +82,7 @@ button {
   flex-direction: column;
   justify-content: space-between;
   width: 90vw;
-  height: 85vh;
+  height: 82vh;
   color: var(--graphite);
   padding: 16px;
 
@@ -92,8 +97,8 @@ button {
     flex-direction: column;
     justify-content: end;
     gap: 8px;
-    height: 25vh;
-    max-height: 25vh;
+    height: auto;
+    max-height: auto;
     overflow-y: auto;
 
     >div {
@@ -112,18 +117,18 @@ button {
       }
     }
   }
+}
 
-  #buttons-container {
-    display: flex;
-    align-items: end;
-    flex-direction: row;
-    gap: 8px;
-    height: 10vh;
+.buttons-container {
+  display: flex;
+  align-items: end;
+  flex-direction: row;
+  gap: 8px;
+  height: 10vh;
 
-    >button {
-      width: 100%;
-      height: 60px;
-    }
+  >button {
+    width: 100%;
+    height: 60px;
   }
 }
 
@@ -133,4 +138,61 @@ button {
 
 .q-op-incorrect {
   background-color: var(--rosy-granite);
+}
+
+#select-themes-container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 90vw;
+  height: auto;
+  padding: 16px;
+  padding-top: 0;
+
+  #themes-container {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+
+    #themes-list {
+      max-height: 55vh;
+      overflow-y: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: start;
+      align-items: start;
+      align-content: start;
+      flex-direction: row-reverse;
+      margin-bottom: 6px;
+      padding: 2px;
+    }
+  }
+}
+
+.theme-item {
+  background-color: var(--deep-purple);
+  color: var(--pale-slate);
+  border: 3px solid var(--graphite);
+  border-radius: var(--rounded-corners);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 4px;
+  padding-right: 4px;
+
+  &:hover {
+    background-color: var(--deep-purple-hover);
+    border: 3px solid var(--graphite);
+  }
+
+  &.selected {
+    background-color: var(--dusty-olive);
+    border: 3px solid var(--graphite);
+  }
+}
+
+#q-count {
+  margin-bottom: 6px;
 }

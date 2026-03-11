@@ -14,6 +14,8 @@ func (s *Server) SetupRoutes() http.Handler {
 	mux.HandleFunc("GET /health", s.healthHandler)
 	mux.HandleFunc("/questions", s.questionsHandler)
 	mux.HandleFunc("/questions/{id}", s.questionHandler)
+	mux.HandleFunc("/questions/tags", s.tagsHandler)
+	mux.HandleFunc("/questions/tags/count", s.tagsCountHandler)
 	return s.corsMiddleware(mux)
 }
 
@@ -105,5 +107,55 @@ func (s *Server) questionHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		w.WriteHeader(http.StatusNoContent)
+	}
+}
+
+func (s *Server) tagsHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodGet:
+		tags, err := s.questionRetrievalService.GetTags()
+		if err != nil {
+			slog.Error("Failed to get tags", "error", err)
+			http.Error(w, "Failed to get tags", http.StatusInternalServerError)
+			return
+		}
+		resp, err := json.Marshal(tags)
+		if err != nil {
+			http.Error(w, "Failed to marshal response", http.StatusInternalServerError)
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+		w.Write(resp)
+	default:
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+}
+
+func (s *Server) tagsCountHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodGet:
+		tagIDsStr := r.URL.Query().Get("ids")
+		tagIDs, err := domain.ParseInt64QueryString(tagIDsStr)
+		if err != nil {
+			http.Error(w, "Invalid tag IDs", http.StatusBadRequest)
+			return
+		}
+		count, err := s.questionRetrievalService.CountQuestionsWithTags(tagIDs)
+		if err != nil {
+			slog.Error("Failed to count questions with tags", "error", err)
+			http.Error(w, "Failed to count questions with tags", http.StatusInternalServerError)
+			return
+		}
+		resp, err := json.Marshal(count)
+		if err != nil {
+			http.Error(w, "Failed to marshal response", http.StatusInternalServerError)
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+		w.Write(resp)
+	default:
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
 	}
 }

@@ -17,3 +17,11 @@ func (s *QuestionRetrievalService) GetQuestionByID(id int64) (*domain.Question, 
 func (s *QuestionRetrievalService) GetRandomQuestion() (*domain.Question, error) {
 	return s.questionRepository.GetRandomQuestion()
 }
+
+func (s *QuestionRetrievalService) GetTags() ([]domain.QuestionTagAPIResponse, error) {
+	return s.questionRepository.GetTags()
+}
+
+func (s *QuestionRetrievalService) CountQuestionsWithTags(tagIDs []int64) (int, error) {
+	return s.questionRepository.CountQuestionsWithTags(tagIDs)
+}

@@ -10,6 +10,12 @@ export type Question = {
   }[];
 }
 
+export type Tag = {
+  id: number;
+  tag: string;
+  count: number;
+}
+
 export let isRandomQuestion = false;
 let currentQuestion: Question | null = null;
 
@@ -52,7 +58,6 @@ export const loadQuestion = (question: Question, isRandom: boolean = false) => {
     optionsElement.appendChild(button);
 }
 
-
 export const unloadQuestion = () => {
   currentQuestion = null;
   isRandomQuestion = false;
@@ -68,7 +73,7 @@ export const unloadQuestion = () => {
 }
 
 //@ts-ignore
-const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
+const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:9090';
 
 export const getRandomQuestion = async (): Promise<Question> => {
   const url = `${baseUrl}/questions`;
@@ -78,6 +83,29 @@ export const getRandomQuestion = async (): Promise<Question> => {
     throw new Error('Failed to fetch random questions');
   const question = await response.json() as Question;
   return question;
+}
+
+export const getTags = async (): Promise<Tag[]> => {
+  const url = `${baseUrl}/questions/tags`;
+  const response = await fetch(url);
+  if (!response.ok)
+    throw new Error('Failed to fetch tags');
+  const tags = await response.json() as Tag[];
+  return tags;
+}
+
+export const countQuestionsWithTags = async (tags: Tag[]): Promise<number> => {
+  if (tags.length === 0)
+    return 0;
+
+  const ids = tags.map(t => t.id);
+  const idsStr = ids.join(',');
+  const url = `${baseUrl}/questions/tags/count?ids=${idsStr}`;
+  const response = await fetch(url);
+  if (!response.ok)
+    throw new Error('Failed to count questions with tags');
+  const count = await response.json() as number;
+  return count;
 }
 
 const enableConfirmButton = () => {
@@ -109,7 +137,7 @@ const addConfirmButton = () => {
   button.id = 'confirm-question-btn';
   button.textContent = 'Confirmar';
   button.addEventListener('click', confirmQuestion);
-  document.getElementById('buttons-container')?.appendChild(button);
+  document.querySelector('#answers-container .buttons-container')?.appendChild(button);
 }
 
 const addNextQuestionButton = () => {
@@ -128,7 +156,7 @@ const addNextQuestionButton = () => {
     addConfirmButton()
     getRandomQuestion().then(q => loadQuestion(q, true)).catch(console.error);
   });
-  document.getElementById('buttons-container')?.appendChild(button);
+  document.querySelector('#answers-container .buttons-container')?.appendChild(button);
 }
 
 const removeNextQuestionButton = () => {
@@ -158,5 +186,87 @@ export const confirmQuestion = () => {
     option.parentElement?.classList.add(qOption?.correct ? 'q-op-correct' : 'q-op-incorrect');
     removeConfirmButton()
     addNextQuestionButton()
+  }
+}
+
+let selectedTags = [] as Tag[];
+let availableQuestionsCount = 0;
+export let desiredQuestionsCount: number | null = null;
+
+export const setDesiredQuestionsCount = (count: number) => {
+  desiredQuestionsCount = count;
+  const cntBtns = document.getElementsByClassName('q-count-btn');
+  let selectedBtn: HTMLButtonElement | null = null;
+  for (const btn of cntBtns) {
+    btn.classList.remove('selected');
+    if (btn.textContent === count.toString())
+      selectedBtn = btn as HTMLButtonElement;
+  }
+  if (selectedBtn)
+    selectedBtn.classList.add('selected');
+}
+
+const getDesiredQuestionsOptions = () => {
+  const cntBtns = document.getElementsByClassName('q-count-btn');
+  const options: number[] = []
+  for (const btn of cntBtns)
+    options.push(parseInt(btn.textContent || '0'));
+  return options.filter(o => !isNaN(o));
+}
+
+export const loadTags = (tags: Tag[]) => {
+  const themesListElement = document.getElementById('themes-list');
+  if (!themesListElement)
+    throw new Error('Themes list element not found');
+  themesListElement.innerHTML = '';
+
+  for (const tag of tags) {
+    const div = document.createElement('div');
+    div.classList.add('theme-item');
+    div.textContent = tag.tag;
+    div.addEventListener('click', () => {
+      const isSelected = div.classList.contains('selected');
+
+      if (isSelected) {
+        div.classList.remove('selected') 
+        selectedTags = selectedTags.filter(t => t.id !== tag.id);
+      } else {
+        div.classList.add('selected');
+        selectedTags.push(tag);
+      }
+      updateAvailableTagsCount()
+    });
+    themesListElement.appendChild(div);
+  }
+}
+
+export const unloadTags = () => {
+  const themesListElement = document.getElementById('themes-list');
+  if (!themesListElement) {
+    console.warn('Themes list element not found');
+    return;
+  }
+  themesListElement.innerHTML = '';
+  themesListElement.textContent = 'Carregando...';
+}
+
+const updateAvailableTagsCount = async () => {
+  availableQuestionsCount = await countQuestionsWithTags(selectedTags);
+  const el = document.getElementById('q-available');
+  if (el)
+    el.textContent = `Disponíveis: ${availableQuestionsCount}`;
+  else
+    console.warn('Available questions count element not found');
+
+  if (availableQuestionsCount < (desiredQuestionsCount ?? 0)) {
+    console.warn(`Available questions count is less than desired questions count: ${availableQuestionsCount} < ${desiredQuestionsCount}`);
+    const options = getDesiredQuestionsOptions();
+    let highest = 0
+    for (const option of options) {
+      if (option > highest && option <= availableQuestionsCount)
+        highest = option;
+    }
+    console.log(`Setting desired questions count to ${highest}`);
+    setDesiredQuestionsCount(highest);
   }
 }

@@ -344,3 +344,45 @@ func (r *QuestionRepository) GetRandomQuestion() (*domain.Question, error) {
 	}
 	return r.GetQuestionByID(id)
 }
+
+func (r *QuestionRepository) GetTags() ([]domain.QuestionTagAPIResponse, error) {
+	query := `SELECT id, tag, "group", count(question_tags.question_id) as count FROM tags left join question_tags on tags.id = question_tags.tag_id group by tags.id order by count desc;`
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	results := make([]domain.QuestionTagAPIResponse, 0)
+	for rows.Next() {
+		tag := domain.QuestionTagAPIResponse{}
+		err = rows.Scan(&tag.ID, &tag.Tag, &tag.Group, &tag.Count)
+		if err != nil {
+			return nil, err
+		}
+		results = append(results, tag)
+	}
+	return results, nil
+}
+
+func (r *QuestionRepository) CountQuestionsWithTags(tagIDs []int64) (int, error) {
+	query := `SELECT count(*) FROM questions`
+	params := make([]any, len(tagIDs))
+	for i, tagID := range tagIDs {
+		if i == 0 {
+			query += " WHERE id IN"
+		} else {
+			query += " AND id IN"
+		}
+		query += ` (SELECT question_id FROM question_tags WHERE tag_id = ?)`
+		params[i] = tagID
+	}
+
+	row := r.db.QueryRow(query, params...)
+	var count int
+	err := row.Scan(&count)
+	if err != nil {
+		return 0, err
+	}
+	return count, nil
+}

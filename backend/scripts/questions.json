@@ -1,0 +1,1181 @@
+{
+  "questions": [
+    {
+      "text": "What is the capital of France?",
+      "type": "single_choice",
+      "tags": ["geography", "europe"],
+      "options": [
+        { "text": "London", "correct": false },
+        { "text": "Paris", "correct": true },
+        { "text": "Berlin", "correct": false },
+        { "text": "Madrid", "correct": false }
+      ]
+    },
+    {
+      "text": "Which planet is known as the Red Planet?",
+      "type": "single_choice",
+      "tags": ["astronomy", "science"],
+      "options": [
+        { "text": "Venus", "correct": false },
+        { "text": "Mars", "correct": true },
+        { "text": "Jupiter", "correct": false },
+        { "text": "Saturn", "correct": false }
+      ]
+    },
+    {
+      "text": "What does HTTP stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "web"],
+      "options": [
+        { "text": "HyperText Transfer Protocol", "correct": true },
+        { "text": "High Transfer Text Protocol", "correct": false },
+        { "text": "Hyperlink Text Transfer Process", "correct": false },
+        { "text": "Home Tool Transfer Protocol", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the largest ocean on Earth?",
+      "type": "single_choice",
+      "tags": ["geography", "oceans"],
+      "options": [
+        { "text": "Atlantic Ocean", "correct": false },
+        { "text": "Indian Ocean", "correct": false },
+        { "text": "Pacific Ocean", "correct": true },
+        { "text": "Arctic Ocean", "correct": false }
+      ]
+    },
+    {
+      "text": "In which year did World War II end?",
+      "type": "single_choice",
+      "tags": ["history", "world-war"],
+      "options": [
+        { "text": "1943", "correct": false },
+        { "text": "1944", "correct": false },
+        { "text": "1945", "correct": true },
+        { "text": "1946", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the chemical symbol for gold?",
+      "type": "single_choice",
+      "tags": ["chemistry", "science", "elements", "periodic-table"],
+      "options": [
+        { "text": "Go", "correct": false },
+        { "text": "Gd", "correct": false },
+        { "text": "Au", "correct": true },
+        { "text": "Ag", "correct": false }
+      ]
+    },
+    {
+      "text": "Which programming language is known for web development and runs in browsers?",
+      "type": "single_choice",
+      "tags": ["technology", "programming"],
+      "options": [
+        { "text": "Python", "correct": false },
+        { "text": "Java", "correct": false },
+        { "text": "JavaScript", "correct": true },
+        { "text": "C++", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the speed of light in a vacuum (approximately)?",
+      "type": "single_choice",
+      "tags": ["physics", "science"],
+      "options": [
+        { "text": "150,000 km/s", "correct": false },
+        { "text": "200,000 km/s", "correct": false },
+        { "text": "300,000 km/s", "correct": true },
+        { "text": "400,000 km/s", "correct": false }
+      ]
+    },
+    {
+      "text": "Which country is home to the kangaroo?",
+      "type": "single_choice",
+      "tags": ["geography", "animals", "oceania"],
+      "options": [
+        { "text": "New Zealand", "correct": false },
+        { "text": "Australia", "correct": true },
+        { "text": "South Africa", "correct": false },
+        { "text": "Indonesia", "correct": false }
+      ]
+    },
+    {
+      "text": "What does CPU stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "computers"],
+      "options": [
+        { "text": "Central Processing Unit", "correct": true },
+        { "text": "Computer Personal Unit", "correct": false },
+        { "text": "Central Program Utility", "correct": false },
+        { "text": "Core Processing Unit", "correct": false }
+      ]
+    },
+    {
+      "text": "Who wrote Romeo and Juliet?",
+      "type": "single_choice",
+      "tags": ["literature", "drama"],
+      "options": [
+        { "text": "Charles Dickens", "correct": false },
+        { "text": "Jane Austen", "correct": false },
+        { "text": "William Shakespeare", "correct": true },
+        { "text": "Mark Twain", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the smallest prime number?",
+      "type": "single_choice",
+      "tags": ["mathematics", "numbers", "arithmetic"],
+      "options": [
+        { "text": "0", "correct": false },
+        { "text": "1", "correct": false },
+        { "text": "2", "correct": true },
+        { "text": "3", "correct": false }
+      ]
+    },
+    {
+      "text": "Which organ in the human body pumps blood?",
+      "type": "single_choice",
+      "tags": ["biology", "anatomy"],
+      "options": [
+        { "text": "Lungs", "correct": false },
+        { "text": "Liver", "correct": false },
+        { "text": "Heart", "correct": true },
+        { "text": "Kidneys", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the main ingredient in guacamole?",
+      "type": "single_choice",
+      "tags": ["food", "cuisine"],
+      "options": [
+        { "text": "Tomato", "correct": false },
+        { "text": "Avocado", "correct": true },
+        { "text": "Cucumber", "correct": false },
+        { "text": "Pepper", "correct": false }
+      ]
+    },
+    {
+      "text": "Which planet is closest to the Sun?",
+      "type": "single_choice",
+      "tags": ["astronomy", "solar-system"],
+      "options": [
+        { "text": "Venus", "correct": false },
+        { "text": "Earth", "correct": false },
+        { "text": "Mercury", "correct": true },
+        { "text": "Mars", "correct": false }
+      ]
+    },
+    {
+      "text": "What does HTML stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "web"],
+      "options": [
+        { "text": "HyperText Markup Language", "correct": true },
+        { "text": "High Tech Modern Language", "correct": false },
+        { "text": "Home Tool Markup Language", "correct": false },
+        { "text": "Hyperlink Text Markup Language", "correct": false }
+      ]
+    },
+    {
+      "text": "In which continent is Egypt located?",
+      "type": "single_choice",
+      "tags": ["geography", "africa"],
+      "options": [
+        { "text": "Asia", "correct": false },
+        { "text": "Europe", "correct": false },
+        { "text": "Africa", "correct": true },
+        { "text": "South America", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the boiling point of water at sea level (in Celsius)?",
+      "type": "single_choice",
+      "tags": ["physics", "chemistry", "thermodynamics"],
+      "options": [
+        { "text": "90°C", "correct": false },
+        { "text": "100°C", "correct": true },
+        { "text": "110°C", "correct": false },
+        { "text": "120°C", "correct": false }
+      ]
+    },
+    {
+      "text": "Which country invented paper?",
+      "type": "single_choice",
+      "tags": ["history", "inventions", "asia"],
+      "options": [
+        { "text": "Japan", "correct": false },
+        { "text": "India", "correct": false },
+        { "text": "China", "correct": true },
+        { "text": "Egypt", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the largest mammal on Earth?",
+      "type": "single_choice",
+      "tags": ["biology", "animals"],
+      "options": [
+        { "text": "Elephant", "correct": false },
+        { "text": "Blue Whale", "correct": true },
+        { "text": "Giraffe", "correct": false },
+        { "text": "Polar Bear", "correct": false }
+      ]
+    },
+    {
+      "text": "Which protocol is used for secure web connections?",
+      "type": "single_choice",
+      "tags": ["technology", "security"],
+      "options": [
+        { "text": "HTTP", "correct": false },
+        { "text": "FTP", "correct": false },
+        { "text": "HTTPS", "correct": true },
+        { "text": "SMTP", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the capital of Japan?",
+      "type": "single_choice",
+      "tags": ["geography", "asia"],
+      "options": [
+        { "text": "Seoul", "correct": false },
+        { "text": "Beijing", "correct": false },
+        { "text": "Tokyo", "correct": true },
+        { "text": "Osaka", "correct": false }
+      ]
+    },
+    {
+      "text": "How many continents are there?",
+      "type": "single_choice",
+      "tags": ["geography", "general", "continents"],
+      "options": [
+        { "text": "5", "correct": false },
+        { "text": "6", "correct": false },
+        { "text": "7", "correct": true },
+        { "text": "8", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the square root of 144?",
+      "type": "single_choice",
+      "tags": ["mathematics", "arithmetic"],
+      "options": [
+        { "text": "10", "correct": false },
+        { "text": "11", "correct": false },
+        { "text": "12", "correct": true },
+        { "text": "14", "correct": false }
+      ]
+    },
+    {
+      "text": "Which gas do plants absorb from the air for photosynthesis?",
+      "type": "single_choice",
+      "tags": ["biology", "ecology", "chemistry"],
+      "options": [
+        { "text": "Oxygen", "correct": false },
+        { "text": "Nitrogen", "correct": false },
+        { "text": "Carbon dioxide", "correct": true },
+        { "text": "Hydrogen", "correct": false }
+      ]
+    },
+    {
+      "text": "What year did the first iPhone launch?",
+      "type": "single_choice",
+      "tags": ["technology", "history", "inventions"],
+      "options": [
+        { "text": "2005", "correct": false },
+        { "text": "2006", "correct": false },
+        { "text": "2007", "correct": true },
+        { "text": "2008", "correct": false }
+      ]
+    },
+    {
+      "text": "Which element has the atomic number 1?",
+      "type": "single_choice",
+      "tags": ["chemistry", "periodic-table"],
+      "options": [
+        { "text": "Helium", "correct": false },
+        { "text": "Hydrogen", "correct": true },
+        { "text": "Lithium", "correct": false },
+        { "text": "Oxygen", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the longest river in the world?",
+      "type": "single_choice",
+      "tags": ["geography", "rivers", "africa"],
+      "options": [
+        { "text": "Amazon", "correct": false },
+        { "text": "Nile", "correct": true },
+        { "text": "Yangtze", "correct": false },
+        { "text": "Mississippi", "correct": false }
+      ]
+    },
+    {
+      "text": "Which planet has the most moons in our solar system?",
+      "type": "single_choice",
+      "tags": ["astronomy", "solar-system"],
+      "options": [
+        { "text": "Saturn", "correct": true },
+        { "text": "Jupiter", "correct": false },
+        { "text": "Uranus", "correct": false },
+        { "text": "Neptune", "correct": false }
+      ]
+    },
+    {
+      "text": "What does API stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "programming"],
+      "options": [
+        { "text": "Application Programming Interface", "correct": true },
+        { "text": "Advanced Program Integration", "correct": false },
+        { "text": "Automated Process Interface", "correct": false },
+        { "text": "Application Process Integration", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the chemical symbol for silver?",
+      "type": "single_choice",
+      "tags": ["chemistry", "elements", "periodic-table"],
+      "options": [
+        { "text": "Si", "correct": false },
+        { "text": "Ag", "correct": true },
+        { "text": "Au", "correct": false },
+        { "text": "Sr", "correct": false }
+      ]
+    },
+    {
+      "text": "Which country has the most population?",
+      "type": "single_choice",
+      "tags": ["geography", "demographics", "asia"],
+      "options": [
+        { "text": "India", "correct": false },
+        { "text": "China", "correct": true },
+        { "text": "United States", "correct": false },
+        { "text": "Indonesia", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the freezing point of water in Celsius?",
+      "type": "single_choice",
+      "tags": ["physics", "chemistry", "thermodynamics"],
+      "options": [
+        { "text": "-10°C", "correct": false },
+        { "text": "0°C", "correct": true },
+        { "text": "10°C", "correct": false },
+        { "text": "32°C", "correct": false }
+      ]
+    },
+    {
+      "text": "Who painted the Mona Lisa?",
+      "type": "single_choice",
+      "tags": ["art", "history", "europe"],
+      "options": [
+        { "text": "Vincent van Gogh", "correct": false },
+        { "text": "Leonardo da Vinci", "correct": true },
+        { "text": "Pablo Picasso", "correct": false },
+        { "text": "Michelangelo", "correct": false }
+      ]
+    },
+    {
+      "text": "What does SQL stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "databases"],
+      "options": [
+        { "text": "Structured Query Language", "correct": true },
+        { "text": "Simple Query Language", "correct": false },
+        { "text": "Standard Question Language", "correct": false },
+        { "text": "System Query Logic", "correct": false }
+      ]
+    },
+    {
+      "text": "Which mountain is the tallest on Earth?",
+      "type": "single_choice",
+      "tags": ["geography", "mountains"],
+      "options": [
+        { "text": "K2", "correct": false },
+        { "text": "Mount Everest", "correct": true },
+        { "text": "Kilimanjaro", "correct": false },
+        { "text": "Denali", "correct": false }
+      ]
+    },
+    {
+      "text": "How many sides does a hexagon have?",
+      "type": "single_choice",
+      "tags": ["mathematics", "geometry"],
+      "options": [
+        { "text": "5", "correct": false },
+        { "text": "6", "correct": true },
+        { "text": "7", "correct": false },
+        { "text": "8", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the largest desert in the world?",
+      "type": "single_choice",
+      "tags": ["geography", "climate"],
+      "options": [
+        { "text": "Sahara", "correct": false },
+        { "text": "Arabian", "correct": false },
+        { "text": "Antarctica", "correct": true },
+        { "text": "Gobi", "correct": false }
+      ]
+    },
+    {
+      "text": "Which vitamin is produced when skin is exposed to sunlight?",
+      "type": "single_choice",
+      "tags": ["biology", "nutrition"],
+      "options": [
+        { "text": "Vitamin A", "correct": false },
+        { "text": "Vitamin C", "correct": false },
+        { "text": "Vitamin D", "correct": true },
+        { "text": "Vitamin E", "correct": false }
+      ]
+    },
+    {
+      "text": "In which country did the Renaissance begin?",
+      "type": "single_choice",
+      "tags": ["history", "culture", "europe"],
+      "options": [
+        { "text": "France", "correct": false },
+        { "text": "Italy", "correct": true },
+        { "text": "Spain", "correct": false },
+        { "text": "England", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the value of Pi (approximately)?",
+      "type": "single_choice",
+      "tags": ["mathematics", "constants"],
+      "options": [
+        { "text": "2.14", "correct": false },
+        { "text": "3.14", "correct": true },
+        { "text": "4.14", "correct": false },
+        { "text": "3.41", "correct": false }
+      ]
+    },
+    {
+      "text": "Which planet is known for its rings?",
+      "type": "single_choice",
+      "tags": ["astronomy", "planets", "solar-system"],
+      "options": [
+        { "text": "Jupiter", "correct": false },
+        { "text": "Uranus", "correct": false },
+        { "text": "Saturn", "correct": true },
+        { "text": "Neptune", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the main component of the Sun?",
+      "type": "single_choice",
+      "tags": ["astronomy", "physics", "science"],
+      "options": [
+        { "text": "Helium", "correct": false },
+        { "text": "Hydrogen", "correct": true },
+        { "text": "Carbon", "correct": false },
+        { "text": "Oxygen", "correct": false }
+      ]
+    },
+    {
+      "text": "Which programming paradigm does React use?",
+      "type": "single_choice",
+      "tags": ["technology", "frontend", "web", "programming"],
+      "options": [
+        { "text": "Object-oriented", "correct": false },
+        { "text": "Declarative", "correct": true },
+        { "text": "Procedural", "correct": false },
+        { "text": "Functional only", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the capital of Brazil?",
+      "type": "single_choice",
+      "tags": ["geography", "south-america"],
+      "options": [
+        { "text": "São Paulo", "correct": false },
+        { "text": "Rio de Janeiro", "correct": false },
+        { "text": "Brasília", "correct": true },
+        { "text": "Buenos Aires", "correct": false }
+      ]
+    },
+    {
+      "text": "How many bones are in the adult human body?",
+      "type": "single_choice",
+      "tags": ["biology", "anatomy"],
+      "options": [
+        { "text": "186", "correct": false },
+        { "text": "206", "correct": true },
+        { "text": "226", "correct": false },
+        { "text": "256", "correct": false }
+      ]
+    },
+    {
+      "text": "What does CSS stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "web"],
+      "options": [
+        { "text": "Cascading Style Sheets", "correct": true },
+        { "text": "Computer Style Sheets", "correct": false },
+        { "text": "Creative Style System", "correct": false },
+        { "text": "Color Style Syntax", "correct": false }
+      ]
+    },
+    {
+      "text": "Which animal is the fastest land mammal?",
+      "type": "single_choice",
+      "tags": ["biology", "animals"],
+      "options": [
+        { "text": "Lion", "correct": false },
+        { "text": "Cheetah", "correct": true },
+        { "text": "Horse", "correct": false },
+        { "text": "Antelope", "correct": false }
+      ]
+    },
+    {
+      "text": "What year did the Berlin Wall fall?",
+      "type": "single_choice",
+      "tags": ["history", "cold-war"],
+      "options": [
+        { "text": "1987", "correct": false },
+        { "text": "1988", "correct": false },
+        { "text": "1989", "correct": true },
+        { "text": "1990", "correct": false }
+      ]
+    },
+    {
+      "text": "Which gas makes up most of Earth's atmosphere?",
+      "type": "single_choice",
+      "tags": ["chemistry", "earth-science"],
+      "options": [
+        { "text": "Oxygen", "correct": false },
+        { "text": "Carbon dioxide", "correct": false },
+        { "text": "Nitrogen", "correct": true },
+        { "text": "Argon", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the smallest country in the world?",
+      "type": "single_choice",
+      "tags": ["geography", "countries"],
+      "options": [
+        { "text": "Monaco", "correct": false },
+        { "text": "Vatican City", "correct": true },
+        { "text": "San Marino", "correct": false },
+        { "text": "Liechtenstein", "correct": false }
+      ]
+    },
+    {
+      "text": "Who developed the theory of relativity?",
+      "type": "single_choice",
+      "tags": ["physics", "history", "science"],
+      "options": [
+        { "text": "Isaac Newton", "correct": false },
+        { "text": "Albert Einstein", "correct": true },
+        { "text": "Stephen Hawking", "correct": false },
+        { "text": "Niels Bohr", "correct": false }
+      ]
+    },
+    {
+      "text": "What is 15% of 200?",
+      "type": "single_choice",
+      "tags": ["mathematics", "percentages"],
+      "options": [
+        { "text": "20", "correct": false },
+        { "text": "25", "correct": false },
+        { "text": "30", "correct": true },
+        { "text": "35", "correct": false }
+      ]
+    },
+    {
+      "text": "Which organ produces insulin?",
+      "type": "single_choice",
+      "tags": ["biology", "anatomy"],
+      "options": [
+        { "text": "Liver", "correct": false },
+        { "text": "Pancreas", "correct": true },
+        { "text": "Kidney", "correct": false },
+        { "text": "Stomach", "correct": false }
+      ]
+    },
+    {
+      "text": "What does URL stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "web"],
+      "options": [
+        { "text": "Uniform Resource Locator", "correct": true },
+        { "text": "Universal Resource Link", "correct": false },
+        { "text": "Unified Resource Locator", "correct": false },
+        { "text": "Universal Reference Link", "correct": false }
+      ]
+    },
+    {
+      "text": "Which country is the Taj Mahal located in?",
+      "type": "single_choice",
+      "tags": ["geography", "landmarks", "asia"],
+      "options": [
+        { "text": "Pakistan", "correct": false },
+        { "text": "Bangladesh", "correct": false },
+        { "text": "India", "correct": true },
+        { "text": "Nepal", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the hardest natural substance on Earth?",
+      "type": "single_choice",
+      "tags": ["chemistry", "materials", "science"],
+      "options": [
+        { "text": "Gold", "correct": false },
+        { "text": "Platinum", "correct": false },
+        { "text": "Diamond", "correct": true },
+        { "text": "Titanium", "correct": false }
+      ]
+    },
+    {
+      "text": "How many time zones does Russia span?",
+      "type": "single_choice",
+      "tags": ["geography", "time", "europe", "asia"],
+      "options": [
+        { "text": "9", "correct": false },
+        { "text": "10", "correct": false },
+        { "text": "11", "correct": true },
+        { "text": "12", "correct": false }
+      ]
+    },
+    {
+      "text": "Which element has the symbol Fe?",
+      "type": "single_choice",
+      "tags": ["chemistry", "periodic-table", "elements"],
+      "options": [
+        { "text": "Fluorine", "correct": false },
+        { "text": "Iron", "correct": true },
+        { "text": "Francium", "correct": false },
+        { "text": "Fermium", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the capital of Canada?",
+      "type": "single_choice",
+      "tags": ["geography", "north-america"],
+      "options": [
+        { "text": "Toronto", "correct": false },
+        { "text": "Vancouver", "correct": false },
+        { "text": "Ottawa", "correct": true },
+        { "text": "Montreal", "correct": false }
+      ]
+    },
+    {
+      "text": "Who wrote 1984?",
+      "type": "single_choice",
+      "tags": ["literature", "fiction"],
+      "options": [
+        { "text": "Aldous Huxley", "correct": false },
+        { "text": "George Orwell", "correct": true },
+        { "text": "Ray Bradbury", "correct": false },
+        { "text": "H.G. Wells", "correct": false }
+      ]
+    },
+    {
+      "text": "What does RAM stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "computers"],
+      "options": [
+        { "text": "Random Access Memory", "correct": true },
+        { "text": "Read Access Memory", "correct": false },
+        { "text": "Run Application Memory", "correct": false },
+        { "text": "Random Application Module", "correct": false }
+      ]
+    },
+    {
+      "text": "Which planet is the largest in our solar system?",
+      "type": "single_choice",
+      "tags": ["astronomy", "solar-system"],
+      "options": [
+        { "text": "Saturn", "correct": false },
+        { "text": "Jupiter", "correct": true },
+        { "text": "Uranus", "correct": false },
+        { "text": "Neptune", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the square root of 64?",
+      "type": "single_choice",
+      "tags": ["mathematics", "arithmetic"],
+      "options": [
+        { "text": "6", "correct": false },
+        { "text": "7", "correct": false },
+        { "text": "8", "correct": true },
+        { "text": "9", "correct": false }
+      ]
+    },
+    {
+      "text": "Which blood type is the universal donor?",
+      "type": "single_choice",
+      "tags": ["biology", "medicine", "anatomy"],
+      "options": [
+        { "text": "A", "correct": false },
+        { "text": "B", "correct": false },
+        { "text": "AB", "correct": false },
+        { "text": "O", "correct": true }
+      ]
+    },
+    {
+      "text": "What is the capital of Germany?",
+      "type": "single_choice",
+      "tags": ["geography", "europe"],
+      "options": [
+        { "text": "Munich", "correct": false },
+        { "text": "Berlin", "correct": true },
+        { "text": "Frankfurt", "correct": false },
+        { "text": "Hamburg", "correct": false }
+      ]
+    },
+    {
+      "text": "In which year did humans first land on the Moon?",
+      "type": "single_choice",
+      "tags": ["history", "space", "astronomy"],
+      "options": [
+        { "text": "1967", "correct": false },
+        { "text": "1968", "correct": false },
+        { "text": "1969", "correct": true },
+        { "text": "1970", "correct": false }
+      ]
+    },
+    {
+      "text": "What does JSON stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "data", "programming"],
+      "options": [
+        { "text": "JavaScript Object Notation", "correct": true },
+        { "text": "Java Script Online Notation", "correct": false },
+        { "text": "JavaScript Open Network", "correct": false },
+        { "text": "Java Serialized Object Notation", "correct": false }
+      ]
+    },
+    {
+      "text": "Which ocean is the Bermuda Triangle in?",
+      "type": "single_choice",
+      "tags": ["geography", "oceans"],
+      "options": [
+        { "text": "Pacific", "correct": false },
+        { "text": "Atlantic", "correct": true },
+        { "text": "Indian", "correct": false },
+        { "text": "Arctic", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the chemical formula for water?",
+      "type": "single_choice",
+      "tags": ["chemistry", "molecules"],
+      "options": [
+        { "text": "CO2", "correct": false },
+        { "text": "H2O", "correct": true },
+        { "text": "NaCl", "correct": false },
+        { "text": "O2", "correct": false }
+      ]
+    },
+    {
+      "text": "How many strings does a standard guitar have?",
+      "type": "single_choice",
+      "tags": ["music", "instruments"],
+      "options": [
+        { "text": "4", "correct": false },
+        { "text": "5", "correct": false },
+        { "text": "6", "correct": true },
+        { "text": "7", "correct": false }
+      ]
+    },
+    {
+      "text": "Which country has the most islands?",
+      "type": "single_choice",
+      "tags": ["geography", "islands", "europe"],
+      "options": [
+        { "text": "Indonesia", "correct": false },
+        { "text": "Philippines", "correct": false },
+        { "text": "Sweden", "correct": true },
+        { "text": "Japan", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the powerhouse of the cell?",
+      "type": "single_choice",
+      "tags": ["biology", "cells", "science"],
+      "options": [
+        { "text": "Nucleus", "correct": false },
+        { "text": "Ribosome", "correct": false },
+        { "text": "Mitochondria", "correct": true },
+        { "text": "Golgi apparatus", "correct": false }
+      ]
+    },
+    {
+      "text": "Who invented the telephone?",
+      "type": "single_choice",
+      "tags": ["history", "inventions"],
+      "options": [
+        { "text": "Thomas Edison", "correct": false },
+        { "text": "Alexander Graham Bell", "correct": true },
+        { "text": "Nikola Tesla", "correct": false },
+        { "text": "Guglielmo Marconi", "correct": false }
+      ]
+    },
+    {
+      "text": "What does DNS stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "networking", "web"],
+      "options": [
+        { "text": "Domain Name System", "correct": true },
+        { "text": "Data Network Service", "correct": false },
+        { "text": "Digital Name Server", "correct": false },
+        { "text": "Domain Network Security", "correct": false }
+      ]
+    },
+    {
+      "text": "Which country is the Great Wall of China in?",
+      "type": "single_choice",
+      "tags": ["geography", "landmarks", "asia"],
+      "options": [
+        { "text": "Japan", "correct": false },
+        { "text": "Mongolia", "correct": false },
+        { "text": "China", "correct": true },
+        { "text": "South Korea", "correct": false }
+      ]
+    },
+    {
+      "text": "What is 2 to the power of 10?",
+      "type": "single_choice",
+      "tags": ["mathematics", "exponents"],
+      "options": [
+        { "text": "512", "correct": false },
+        { "text": "1024", "correct": true },
+        { "text": "2048", "correct": false },
+        { "text": "4096", "correct": false }
+      ]
+    },
+    {
+      "text": "Which vitamin is ascorbic acid?",
+      "type": "single_choice",
+      "tags": ["chemistry", "nutrition", "biology"],
+      "options": [
+        { "text": "Vitamin A", "correct": false },
+        { "text": "Vitamin B", "correct": false },
+        { "text": "Vitamin C", "correct": true },
+        { "text": "Vitamin D", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the capital of Australia?",
+      "type": "single_choice",
+      "tags": ["geography", "oceania"],
+      "options": [
+        { "text": "Sydney", "correct": false },
+        { "text": "Melbourne", "correct": false },
+        { "text": "Canberra", "correct": true },
+        { "text": "Perth", "correct": false }
+      ]
+    },
+    {
+      "text": "Which programming language was created by Guido van Rossum?",
+      "type": "single_choice",
+      "tags": ["technology", "programming"],
+      "options": [
+        { "text": "Ruby", "correct": false },
+        { "text": "Python", "correct": true },
+        { "text": "Perl", "correct": false },
+        { "text": "PHP", "correct": false }
+      ]
+    },
+    {
+      "text": "How many faces does a cube have?",
+      "type": "single_choice",
+      "tags": ["mathematics", "geometry"],
+      "options": [
+        { "text": "4", "correct": false },
+        { "text": "5", "correct": false },
+        { "text": "6", "correct": true },
+        { "text": "8", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the largest bird in the world?",
+      "type": "single_choice",
+      "tags": ["biology", "animals"],
+      "options": [
+        { "text": "Eagle", "correct": false },
+        { "text": "Albatross", "correct": false },
+        { "text": "Ostrich", "correct": true },
+        { "text": "Emu", "correct": false }
+      ]
+    },
+    {
+      "text": "Which continent has the most countries?",
+      "type": "single_choice",
+      "tags": ["geography", "continents"],
+      "options": [
+        { "text": "Asia", "correct": false },
+        { "text": "Europe", "correct": false },
+        { "text": "Africa", "correct": true },
+        { "text": "South America", "correct": false }
+      ]
+    },
+    {
+      "text": "What does GPU stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "computers"],
+      "options": [
+        { "text": "Graphics Processing Unit", "correct": true },
+        { "text": "General Processing Unit", "correct": false },
+        { "text": "Global Program Utility", "correct": false },
+        { "text": "Graphics Program Unit", "correct": false }
+      ]
+    },
+    {
+      "text": "In which country is the city of Venice located?",
+      "type": "single_choice",
+      "tags": ["geography", "europe"],
+      "options": [
+        { "text": "Spain", "correct": false },
+        { "text": "France", "correct": false },
+        { "text": "Italy", "correct": true },
+        { "text": "Greece", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the atomic number of carbon?",
+      "type": "single_choice",
+      "tags": ["chemistry", "periodic-table", "elements"],
+      "options": [
+        { "text": "4", "correct": false },
+        { "text": "5", "correct": false },
+        { "text": "6", "correct": true },
+        { "text": "7", "correct": false }
+      ]
+    },
+    {
+      "text": "Which planet takes the longest to orbit the Sun?",
+      "type": "single_choice",
+      "tags": ["astronomy", "solar-system"],
+      "options": [
+        { "text": "Saturn", "correct": false },
+        { "text": "Uranus", "correct": false },
+        { "text": "Neptune", "correct": true },
+        { "text": "Pluto", "correct": false }
+      ]
+    },
+    {
+      "text": "Who wrote Pride and Prejudice?",
+      "type": "single_choice",
+      "tags": ["literature", "fiction"],
+      "options": [
+        { "text": "Charlotte Brontë", "correct": false },
+        { "text": "Jane Austen", "correct": true },
+        { "text": "Emily Brontë", "correct": false },
+        { "text": "Mary Shelley", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the capital of Russia?",
+      "type": "single_choice",
+      "tags": ["geography", "europe"],
+      "options": [
+        { "text": "St. Petersburg", "correct": false },
+        { "text": "Moscow", "correct": true },
+        { "text": "Kiev", "correct": false },
+        { "text": "Warsaw", "correct": false }
+      ]
+    },
+    {
+      "text": "How many legs does a spider have?",
+      "type": "single_choice",
+      "tags": ["biology", "animals"],
+      "options": [
+        { "text": "6", "correct": false },
+        { "text": "8", "correct": true },
+        { "text": "10", "correct": false },
+        { "text": "12", "correct": false }
+      ]
+    },
+    {
+      "text": "What does IDE stand for in programming?",
+      "type": "single_choice",
+      "tags": ["technology", "programming"],
+      "options": [
+        { "text": "Integrated Development Environment", "correct": true },
+        { "text": "Internal Development Editor", "correct": false },
+        { "text": "Interactive Design Environment", "correct": false },
+        { "text": "Integrated Design Editor", "correct": false }
+      ]
+    },
+    {
+      "text": "Which river flows through Paris?",
+      "type": "single_choice",
+      "tags": ["geography", "rivers", "europe"],
+      "options": [
+        { "text": "Thames", "correct": false },
+        { "text": "Rhine", "correct": false },
+        { "text": "Seine", "correct": true },
+        { "text": "Danube", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the speed of sound in air (approximately)?",
+      "type": "single_choice",
+      "tags": ["physics", "acoustics"],
+      "options": [
+        { "text": "300 m/s", "correct": false },
+        { "text": "330 m/s", "correct": true },
+        { "text": "400 m/s", "correct": false },
+        { "text": "500 m/s", "correct": false }
+      ]
+    },
+    {
+      "text": "Which country invented chess?",
+      "type": "single_choice",
+      "tags": ["history", "games", "culture"],
+      "options": [
+        { "text": "China", "correct": false },
+        { "text": "Persia/India", "correct": true },
+        { "text": "Egypt", "correct": false },
+        { "text": "Greece", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the largest internal organ in the human body?",
+      "type": "single_choice",
+      "tags": ["biology", "anatomy"],
+      "options": [
+        { "text": "Heart", "correct": false },
+        { "text": "Brain", "correct": false },
+        { "text": "Liver", "correct": true },
+        { "text": "Lungs", "correct": false }
+      ]
+    },
+    {
+      "text": "What does VPN stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "security"],
+      "options": [
+        { "text": "Virtual Private Network", "correct": true },
+        { "text": "Very Private Network", "correct": false },
+        { "text": "Virtual Public Network", "correct": false },
+        { "text": "Verified Private Node", "correct": false }
+      ]
+    },
+    {
+      "text": "Which element is liquid at room temperature?",
+      "type": "single_choice",
+      "tags": ["chemistry", "elements", "periodic-table"],
+      "options": [
+        { "text": "Bromine", "correct": true },
+        { "text": "Chlorine", "correct": false },
+        { "text": "Iodine", "correct": false },
+        { "text": "Fluorine", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the capital of South Korea?",
+      "type": "single_choice",
+      "tags": ["geography", "asia"],
+      "options": [
+        { "text": "Busan", "correct": false },
+        { "text": "Seoul", "correct": true },
+        { "text": "Incheon", "correct": false },
+        { "text": "Daegu", "correct": false }
+      ]
+    },
+    {
+      "text": "How many chromosomes do humans have?",
+      "type": "single_choice",
+      "tags": ["biology", "genetics"],
+      "options": [
+        { "text": "42", "correct": false },
+        { "text": "44", "correct": false },
+        { "text": "46", "correct": true },
+        { "text": "48", "correct": false }
+      ]
+    },
+    {
+      "text": "Which country has the most volcanoes?",
+      "type": "single_choice",
+      "tags": ["geography", "geology", "asia"],
+      "options": [
+        { "text": "Japan", "correct": false },
+        { "text": "Indonesia", "correct": true },
+        { "text": "Philippines", "correct": false },
+        { "text": "United States", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the factorial of 5?",
+      "type": "single_choice",
+      "tags": ["mathematics", "arithmetic"],
+      "options": [
+        { "text": "100", "correct": false },
+        { "text": "120", "correct": true },
+        { "text": "24", "correct": false },
+        { "text": "60", "correct": false }
+      ]
+    },
+    {
+      "text": "Who discovered penicillin?",
+      "type": "single_choice",
+      "tags": ["history", "medicine", "science"],
+      "options": [
+        { "text": "Louis Pasteur", "correct": false },
+        { "text": "Alexander Fleming", "correct": true },
+        { "text": "Marie Curie", "correct": false },
+        { "text": "Robert Koch", "correct": false }
+      ]
+    },
+    {
+      "text": "What does SSH stand for?",
+      "type": "single_choice",
+      "tags": ["technology", "networking", "security"],
+      "options": [
+        { "text": "Secure Shell", "correct": true },
+        { "text": "Secure Socket Host", "correct": false },
+        { "text": "System Secure Protocol", "correct": false },
+        { "text": "Safe Server Host", "correct": false }
+      ]
+    },
+    {
+      "text": "Which is the only mammal that can fly?",
+      "type": "single_choice",
+      "tags": ["biology", "animals"],
+      "options": [
+        { "text": "Flying squirrel", "correct": false },
+        { "text": "Bat", "correct": true },
+        { "text": "Flying fish", "correct": false },
+        { "text": "Sugar glider", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the capital of Spain?",
+      "type": "single_choice",
+      "tags": ["geography", "europe"],
+      "options": [
+        { "text": "Barcelona", "correct": false },
+        { "text": "Madrid", "correct": true },
+        { "text": "Valencia", "correct": false },
+        { "text": "Seville", "correct": false }
+      ]
+    },
+    {
+      "text": "Which planet has a Great Red Spot?",
+      "type": "single_choice",
+      "tags": ["astronomy", "solar-system"],
+      "options": [
+        { "text": "Saturn", "correct": false },
+        { "text": "Jupiter", "correct": true },
+        { "text": "Mars", "correct": false },
+        { "text": "Neptune", "correct": false }
+      ]
+    },
+    {
+      "text": "What is the sum of angles in a triangle?",
+      "type": "single_choice",
+      "tags": ["mathematics", "geometry"],
+      "options": [
+        { "text": "90 degrees", "correct": false },
+        { "text": "180 degrees", "correct": true },
+        { "text": "270 degrees", "correct": false },
+        { "text": "360 degrees", "correct": false }
+      ]
+    }
+  ]
+}

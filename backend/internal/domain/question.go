@@ -63,7 +63,8 @@ type QuestionOptionAPIResponse struct {
 type QuestionTagAPIResponse struct {
 	ID    int64  `json:"id"`
 	Tag   string `json:"tag"`
-	Group string `json:"group"`
+	Group string `json:"-"`
+	Count int    `json:"count"`
 }
 
 // Validates the questions creation request.
