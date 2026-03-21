@@ -100,6 +100,7 @@ func (s *DatabaseService) Close() error {
 }
 
 func (s *DatabaseService) Exec(query string, args ...any) (sql.Result, error) {
+	slog.Debug("Executing query", "query", query, "args", args)
 	if !s.isConnected {
 		err := s.Connect()
 		if err != nil {

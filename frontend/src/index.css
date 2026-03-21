@@ -60,14 +60,19 @@ button {
   }
 }
 
-#main-button-container {
+#title {
+  height: 7vh;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+#main-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  height: 86vh;
   width: 90vw;
-  margin-top: 30px;
   gap: 12px;
 
   >button {
@@ -77,44 +82,46 @@ button {
   }
 }
 
-#answers-container {
+#random-question-page {
   display: none;
   flex-direction: column;
   justify-content: space-between;
   width: 90vw;
-  height: 82vh;
+  height: 86vh;
   color: var(--graphite);
-  padding: 16px;
 
   #question-text {
-    height: 45vh;
+    height: 46vh;
     max-height: 45vh;
     overflow-y: auto;
   }
+}
 
-  #options-container {
+.options-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 8px;
+  height: auto;
+  max-height: 30vh;
+  overflow-y: auto;
+  height: 30vh;
+  width: 100%;
+
+  >div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     justify-content: end;
-    gap: 8px;
-    height: auto;
-    max-height: auto;
-    overflow-y: auto;
+    width: 100%;
 
-    >div {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: end;
-      width: 100%;
-      
-      label {
-        margin-left: 8px;
-      }
+    label {
+      margin-left: 8px;
+      text-align: end;
+    }
 
-      input {
-        margin-bottom: 5px;
-      }
+    input {
+      margin-bottom: 5px;
     }
   }
 }
@@ -125,11 +132,16 @@ button {
   flex-direction: row;
   gap: 8px;
   height: 10vh;
+  width: 100%;
 
   >button {
     width: 100%;
     height: 60px;
   }
+}
+
+.q-op>* {
+  cursor: pointer;
 }
 
 .q-op-correct {
@@ -140,20 +152,20 @@ button {
   background-color: var(--rosy-granite);
 }
 
-#select-themes-container {
+#themes-question-page {
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: start;
   width: 90vw;
-  height: auto;
-  padding: 16px;
-  padding-top: 0;
+  height: 86vh;
 
   #themes-container {
     width: 100%;
-    height: 100%;
+    height: 77vh;
     max-height: 100%;
+    display: flex;
+    flex-direction: column;
 
     #themes-list {
       max-height: 55vh;
@@ -195,4 +207,100 @@ button {
 
 #q-count {
   margin-bottom: 6px;
+}
+
+#test-page {
+  display: none;
+}
+
+#another-rnd-question-btn {
+  display: none;
+}
+
+#themes-answering-page {
+  display: none;
+}
+
+#finish-answering-btn {
+  display: none;
+}
+
+#change-answer-btn {
+  display: none;
+}
+
+#questions-answering-page {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 90vw;
+  height: 86vh;
+
+  & #question-container {
+    height: 56vh;
+    max-height: 56vh;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 2vh;
+
+    & #a-question-text {
+      margin-top: 2vh;
+    }
+  }
+}
+
+#results-page {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 90vw;
+  height: 86vh;
+}
+
+& .question-navigation {
+  width: 100%;
+  max-height: 20vh;
+  border: 1px solid var(--graphite);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: var(--rounded-corners);
+  flex-wrap: wrap;
+  overflow-y: auto;
+
+  & .question-navigation-item {
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    color: var(--pale-slate);
+    min-width: 18px;
+    background-color: var(--deep-purple);
+    padding: 3px;
+    border-radius: var(--rounded-corners);
+    border: 2px solid var(--graphite);
+
+    &.correct {
+      background-color: var(--dusty-olive);
+    }
+
+    &.incorrect {
+      background-color: var(--deep-purple-disabled);
+    }
+
+    &.answered {
+      background-color: var(--dusty-olive);
+    }
+
+    &.selected {
+      background-color: var(--deep-purple-active);
+    }
+  }
 }

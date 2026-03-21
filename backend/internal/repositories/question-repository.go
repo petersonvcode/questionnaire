@@ -386,3 +386,58 @@ func (r *QuestionRepository) CountQuestionsWithTags(tagIDs []int64) (int, error)
 	}
 	return count, nil
 }
+
+func (r *QuestionRepository) GetQuestionsWithTags(tagIDs []int64, count int) ([]domain.Question, error) {
+
+	tx, err := r.db.BeginTransaction()
+	if err != nil {
+		return nil, err
+	}
+	defer tx.Rollback()
+
+	query := `SELECT id, text, type FROM questions WHERE id IN `
+	params := make([]any, len(tagIDs))
+	for i, tagID := range tagIDs {
+		if i != 0 {
+			query += " AND id IN "
+		}
+
+		query += ` (SELECT question_id FROM question_tags WHERE tag_id = ?)`
+		params[i] = tagID
+	}
+	query += " ORDER BY RANDOM() LIMIT ?;"
+	params = append(params, count)
+
+	rows, err := tx.Query(query, params...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	results := make([]domain.Question, 0, count)
+	for rows.Next() {
+		question := domain.Question{}
+		err = rows.Scan(&question.ID, &question.Text, &question.Type)
+		if err != nil {
+			return nil, err
+		}
+
+		question.Options, err = r.getQuestionOptionsByQuestionID(tx, question.ID)
+		if err != nil {
+			return nil, err
+		}
+		question.Tags, err = r.getQuestionTagsByQuestionID(tx, question.ID)
+		if err != nil {
+			return nil, err
+		}
+
+		results = append(results, question)
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		return nil, err
+	}
+
+	return results, nil
+}

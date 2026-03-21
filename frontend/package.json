@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "VITE_BACKEND_URL=https://q-back.petersonv.click vite build --emptyOutDir",
-    "bundle": "./inline-assets.sh && minhtml dist/index.html > dist/index.min.html"
+    "bundle": "./inline-assets.sh && minhtml dist/index.html > dist/index.min.html && rm dist/index.html"
   },
   "devDependencies": {
     "terser": "^5.44.1",

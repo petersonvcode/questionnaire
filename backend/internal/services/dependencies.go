@@ -7,6 +7,7 @@ type QuestionRepository interface {
 
 	GetQuestionByID(id int64) (*domain.Question, error)
 	GetRandomQuestion() (*domain.Question, error)
+	GetQuestionsWithTags(tagIDs []int64, count int) ([]domain.Question, error)
 
 	GetTags() ([]domain.QuestionTagAPIResponse, error)
 	CountQuestionsWithTags(tagIDs []int64) (int, error)

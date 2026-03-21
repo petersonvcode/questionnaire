@@ -25,3 +25,7 @@ func (s *QuestionRetrievalService) GetTags() ([]domain.QuestionTagAPIResponse, e
 func (s *QuestionRetrievalService) CountQuestionsWithTags(tagIDs []int64) (int, error) {
 	return s.questionRepository.CountQuestionsWithTags(tagIDs)
 }
+
+func (s *QuestionRetrievalService) GetQuestionsWithTags(tagIDs []int64, count int) ([]domain.Question, error) {
+	return s.questionRepository.GetQuestionsWithTags(tagIDs, count)
+}

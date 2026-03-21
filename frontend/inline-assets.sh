@@ -26,6 +26,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
       # Escape </style> so it doesn't close the tag
       sed 's|</style>|<\\/style>|g' < "$css_file"
       echo '    </style>'
+      rm "$css_file"
     else
       echo "$line"
     fi
@@ -39,6 +40,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
       # Escape </script> so it doesn't close the tag
       sed 's|</script>|<\\/script>|g' < "$js_file"
       echo '    </script>'
+      rm "$js_file"
     else
       echo "$line"
     fi

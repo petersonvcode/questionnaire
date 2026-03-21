@@ -25,22 +25,67 @@ func (s *Server) healthHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
 }
 
+func isGetTagsQuestionsRequest(r *http.Request) (valid bool, tagIDs []int64, count int) {
+	if r.Method != http.MethodGet {
+		return false, nil, 0
+	}
+	tagIDsStr := r.URL.Query().Get("tagIDs")
+	tagIDs, err := domain.ParseInt64QueryString(tagIDsStr)
+	if err != nil {
+		return false, nil, 0
+	}
+	if len(tagIDs) <= 0 {
+		return false, nil, 0
+	}
+
+	countStr := r.URL.Query().Get("count")
+	count, err = strconv.Atoi(countStr)
+	if err != nil {
+		return false, nil, 0
+	}
+	if count <= 0 {
+		return false, nil, 0
+	}
+	if count > 100 {
+		return true, tagIDs, 100
+	}
+	return true, tagIDs, count
+}
+
 func (s *Server) questionsHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		question, err := s.questionRetrievalService.GetRandomQuestion()
-		if err != nil {
-			slog.Error("Failed to get random question", "error", err)
-			http.Error(w, "Failed to get random question", http.StatusInternalServerError)
-			return
+		isTagsRequest, tagIDs, count := isGetTagsQuestionsRequest(r)
+		if isTagsRequest {
+			questions, err := s.questionRetrievalService.GetQuestionsWithTags(tagIDs, count)
+			if err != nil {
+				slog.Error("Failed to get questions with tags", "error", err)
+				http.Error(w, "Failed to get questions with tags", http.StatusInternalServerError)
+				return
+			}
+			resp, err := json.Marshal(questions)
+			if err != nil {
+				http.Error(w, "Failed to marshal response", http.StatusInternalServerError)
+				return
+			}
+			w.WriteHeader(http.StatusOK)
+			w.Write(resp)
+		} else {
+			// Get random question
+			question, err := s.questionRetrievalService.GetRandomQuestion()
+			if err != nil {
+				slog.Error("Failed to get random question", "error", err)
+				http.Error(w, "Failed to get random question", http.StatusInternalServerError)
+				return
+			}
+			resp, err := json.Marshal(question)
+			if err != nil {
+				http.Error(w, "Failed to marshal response", http.StatusInternalServerError)
+				return
+			}
+			w.WriteHeader(http.StatusOK)
+			w.Write(resp)
 		}
-		resp, err := json.Marshal(question)
-		if err != nil {
-			http.Error(w, "Failed to marshal response", http.StatusInternalServerError)
-			return
-		}
-		w.WriteHeader(http.StatusOK)
-		w.Write(resp)
 
 	case http.MethodPost:
 		var req domain.QuestionsCreationRequest
