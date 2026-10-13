@@ -3,7 +3,7 @@ package services
 import "github.com/petersonvcode/questionnaire/backend/internal/domain"
 
 type QuestionRepository interface {
-	InsertQuestions(questions []domain.QuestionCreationItemRequest) ([]*domain.Question, error)
+	InsertQuestions(questions []domain.QuestionCreationRequestItem) ([]*domain.Question, error)
 
 	GetQuestionByID(id int64) (*domain.Question, error)
 	GetRandomQuestion() (*domain.Question, error)

@@ -17,7 +17,7 @@ func NewQuestionRepository(db DatabaseService) *QuestionRepository {
 	return &QuestionRepository{db: db}
 }
 
-func (r *QuestionRepository) InsertQuestions(questions []domain.QuestionCreationItemRequest) ([]*domain.Question, error) {
+func (r *QuestionRepository) InsertQuestions(questions []domain.QuestionCreationRequestItem) ([]*domain.Question, error) {
 	tx, err := r.db.BeginTransaction()
 	if err != nil {
 		return nil, err
@@ -50,7 +50,7 @@ func (r *QuestionRepository) InsertQuestions(questions []domain.QuestionCreation
 	return results, nil
 }
 
-func (r *QuestionRepository) insertQuestion(tx *sql.Tx, question domain.QuestionCreationItemRequest) (*domain.Question, error) {
+func (r *QuestionRepository) insertQuestion(tx *sql.Tx, question domain.QuestionCreationRequestItem) (*domain.Question, error) {
 	query := `INSERT INTO questions (text, type) VALUES (?, ?) RETURNING id;`
 	row := tx.QueryRow(query, question.Text, question.Type)
 	var id int64
@@ -94,6 +94,11 @@ func (r *QuestionRepository) insertOptions(tx *sql.Tx, questionID int64, options
 		results = append(results, domain.QuestionOption{ID: id, QuestionID: questionID, Text: options[index].Text, Correct: options[index].Correct})
 		index++
 	}
+	err = rows.Err()
+	if err != nil {
+		return nil, err
+	}
+
 	return results, nil
 }
 
@@ -184,6 +189,10 @@ func (r *QuestionRepository) checkTagExistence(tx *sql.Tx, tags []string) (exist
 			seenTags[tag] = true
 		}
 	}
+	err = rows.Err()
+	if err != nil {
+		return nil, nil, err
+	}
 	for _, t := range tags {
 		if !seenTags[t] {
 			notExists = append(notExists, t)
@@ -244,6 +253,10 @@ func (r *QuestionRepository) getQuestionOptionsByQuestionID(tx *sql.Tx, question
 			return nil, err
 		}
 		results = append(results, opt)
+	}
+	err = rows.Err()
+	if err != nil {
+		return nil, err
 	}
 
 	return results, nil
@@ -432,6 +445,10 @@ func (r *QuestionRepository) GetQuestionsWithTags(tagIDs []int64, count int) ([]
 		}
 
 		results = append(results, question)
+	}
+	err = rows.Err()
+	if err != nil {
+		return nil, err
 	}
 
 	err = tx.Commit()
