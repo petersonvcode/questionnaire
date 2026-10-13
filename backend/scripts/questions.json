@@ -1176,6 +1176,28 @@
         { "text": "270 degrees", "correct": false },
         { "text": "360 degrees", "correct": false }
       ]
+    },
+    {
+      "text": "What is the sum of angles in a triangle?",
+      "type": "single_choice",
+      "tags": ["mathematics", "geometry"],
+      "options": [
+        { "text": "90 degrees", "correct": false },
+        { "text": "180 degrees", "correct": true },
+        { "text": "270 degrees", "correct": false },
+        { "text": "360 degrees", "correct": false }
+      ]
+    },
+    {
+      "text": "What are the pricing options offered when creating a new AWS account?",
+      "type": "multiple_choice",
+      "tags": ["AWS", "DVA-C02", "pricing"],
+      "options": [
+        { "text": "Free - $200 credit, no credit card required, will stop all services after credit is used", "correct": true },
+        { "text": "Trial - $100 credit, credit card required, will stop all services after credit is used", "correct": true },
+        { "text": "Paid - $200 credit, credit card required, will start billing after credit is used", "correct": false },
+        { "text": "Pay as you go - no credit card required, will start billing after credit is used", "correct": false }
+      ]
     }
   ]
 }
