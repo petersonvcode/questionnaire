@@ -1,7 +1,7 @@
 export type Question = {
   id: number;
   text: string;
-  type: 'single-choice';
+  type: 'single_choice' | 'multiple_choice';
   tags: string[];
   options: {
     id: number;

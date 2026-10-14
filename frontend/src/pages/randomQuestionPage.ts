@@ -1,4 +1,4 @@
-import { Page, showElement, hideElement } from "./page";
+import { Page, showElement, hideElement, displayQuestionAndOptions, confirmQuestion } from "./page";
 import { getRandomQuestion, Question} from '../questions'
 
 export class RandomQuestionPage implements Page {
@@ -9,7 +9,6 @@ export class RandomQuestionPage implements Page {
   private readonly anotherQuestionButtonElement: HTMLButtonElement;
 
   private question: Question | null = null;
-  private selectedOptionIndex: number | null = null;
 
   constructor() {
     const pageElement = document.getElementById('random-question-page');
@@ -55,31 +54,7 @@ export class RandomQuestionPage implements Page {
     this.question = await getRandomQuestion()
     this.questionTextElement.textContent = this.question.text;
 
-    const buttons = this.question.options.map((option, i) => {
-      const input = document.createElement('input');
-      input.type = 'radio';
-      input.name = 'q-op';
-      input.value = option.id.toString();
-      input.id = `q-op-${i}`;
-      input.classList.add('q-op-input');
-      input.addEventListener('change', () => {
-        this.selectedOptionIndex = i;
-        this.enableConfirmButton();
-      });
-
-      const label = document.createElement('label');
-      label.htmlFor = `q-op-${i}`;
-      label.appendChild(input);
-      label.textContent = option.text;
-
-      const container = document.createElement('div');
-      container.className = 'q-op';
-      container.appendChild(label);
-      container.appendChild(input);
-      return container;
-    });
-    for (const button of buttons)
-      this.optionsContainerElement.appendChild(button);
+    displayQuestionAndOptions(this.question, this.questionTextElement, this.optionsContainerElement, this.enableConfirmButton);
   }
 
   private enableConfirmButton = () => {
@@ -97,16 +72,11 @@ export class RandomQuestionPage implements Page {
   }
 
   private confirmQuestion = () => {
-    const allOptions = document.querySelectorAll('.q-op-input') as NodeListOf<HTMLInputElement>;
-    for (const option of allOptions) {
-      if (!("value" in option)) {
-        console.warn('Option is not a radio input');
-        continue;
-      }
-      const qOption = this.question?.options.find(o => o.id === parseInt(option.value as string));
-      option.parentElement?.classList.add(qOption?.correct ? 'q-op-correct' : 'q-op-incorrect');
-      option.disabled = true
+    if (!this.question) {
+      console.warn('Question not loaded');
+      return;
     }
+    confirmQuestion(this.question)
 
     this.hideConfirmButton()
     this.showAnotherQuestionButton()
@@ -118,6 +88,8 @@ export class RandomQuestionPage implements Page {
 
   hide = () => {
     hideElement(this.pageElement)
+    this.hideAnotherQuestionButton()
+    this.hideConfirmButton()
     this.question = null;
     this.questionTextElement.textContent = 'Carregando...';
     this.optionsContainerElement.innerHTML = '';
