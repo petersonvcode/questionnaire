@@ -166,3 +166,13 @@ func (q QuestionCreationRequestItem) IsMultipleChoiceQuestionValid() (bool, stri
 	}
 	return true, ""
 }
+
+type CountQuestionsWithTagsResponse struct {
+	TotalCount     int              `json:"totalCount"`
+	OtherTagsCount []OtherTagsCount `json:"otherTagsCount"`
+}
+
+type OtherTagsCount struct {
+	TagID int64 `json:"tagID"`
+	Count int   `json:"count"`
+}

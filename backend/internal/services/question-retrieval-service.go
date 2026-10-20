@@ -22,7 +22,7 @@ func (s *QuestionRetrievalService) GetTags() ([]domain.QuestionTagAPIResponse, e
 	return s.questionRepository.GetTags()
 }
 
-func (s *QuestionRetrievalService) CountQuestionsWithTags(tagIDs []int64) (int, error) {
+func (s *QuestionRetrievalService) CountQuestionsWithTags(tagIDs []int64) (domain.CountQuestionsWithTagsResponse, error) {
 	return s.questionRepository.CountQuestionsWithTags(tagIDs)
 }
 

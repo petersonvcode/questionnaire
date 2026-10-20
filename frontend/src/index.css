@@ -144,6 +144,45 @@ button {
   cursor: pointer;
 }
 
+#answer-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7rem;
+  font-weight: bold;
+  pointer-events: none;
+  opacity: 0;
+}
+
+#answer-flash.ok {
+  color: #1f6b32;
+  animation: flash-ok 0.9s ease;
+}
+
+#answer-flash.bad {
+  color: #8a2430;
+  animation: flash-bad 0.7s ease;
+}
+
+@keyframes flash-ok {
+  0% { opacity: 0; transform: scale(0.4); }
+  30% { opacity: 1; transform: scale(1.15); }
+  70% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+@keyframes flash-bad {
+  0% { opacity: 0; }
+  20% { opacity: 1; transform: translateX(-14px); }
+  40% { transform: translateX(14px); }
+  60% { transform: translateX(-8px); }
+  80% { opacity: 1; transform: translateX(8px); }
+  100% { opacity: 0; }
+}
+
 .q-op-correct {
   background-color: var(--dusty-olive);
 }
@@ -166,6 +205,7 @@ button {
     max-height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: start;
 
     #themes-list {
       max-height: 55vh;
@@ -176,10 +216,21 @@ button {
       justify-content: start;
       align-items: start;
       align-content: start;
-      flex-direction: row-reverse;
+      flex-direction: row;
       margin-bottom: 6px;
       padding: 2px;
     }
+  }
+}
+
+/* Add other small-screen rules here. */
+@media (max-width: 767px) {
+  #themes-question-page #themes-container {
+    align-items: end;
+  }
+
+  #themes-question-page #themes-container #themes-list {
+    flex-direction: row-reverse;
   }
 }
 

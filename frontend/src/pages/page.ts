@@ -15,6 +15,15 @@ export const hideElement = (element?: HTMLElement | null) => {
     element.style.display = 'none';
 }
 
+export const flashAnswer = (correct: boolean) => {
+  const el = document.getElementById('answer-flash');
+  if (!el) return;
+  el.textContent = correct ? '✓' : '✗';
+  el.className = '';
+  void el.offsetWidth;
+  el.className = correct ? 'ok' : 'bad';
+}
+
 const optionInputClass = 'q-op-input';
 
 export const displayQuestionAndOptions = (

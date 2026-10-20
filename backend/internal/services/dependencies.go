@@ -10,7 +10,7 @@ type QuestionRepository interface {
 	GetQuestionsWithTags(tagIDs []int64, count int) ([]domain.Question, error)
 
 	GetTags() ([]domain.QuestionTagAPIResponse, error)
-	CountQuestionsWithTags(tagIDs []int64) (int, error)
+	CountQuestionsWithTags(tagIDs []int64) (domain.CountQuestionsWithTagsResponse, error)
 
 	DeleteQuestionByID(id int64) error
 }

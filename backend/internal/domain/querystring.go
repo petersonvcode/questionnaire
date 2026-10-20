@@ -10,6 +10,10 @@ import (
 func ParseInt64QueryString(s string) ([]int64, error) {
 	ids := strings.Split(s, ",")
 	result := make([]int64, len(ids))
+	if len(ids) == 1 && strings.TrimSpace(ids[0]) == "" {
+		return []int64{}, nil
+	}
+
 	for i, id := range ids {
 		idInt, err := strconv.ParseInt(strings.TrimSpace(id), 10, 64)
 		if err != nil {

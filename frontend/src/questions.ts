@@ -38,18 +38,24 @@ export const getTags = async (): Promise<Tag[]> => {
   return tags;
 }
 
-export const countQuestionsWithTags = async (tags: Tag[]): Promise<number> => {
-  if (tags.length === 0)
-    return 0;
+export type OtherTagCount = {
+  tagID: number;
+  count: number;
+}
 
+export type CountQuestionsWithTags = {
+  totalCount: number;
+  otherTagsCount: OtherTagCount[];
+}
+
+export const countQuestionsWithTags = async (tags: Tag[]): Promise<CountQuestionsWithTags> => {
   const ids = tags.map(t => t.id);
   const idsStr = ids.join(',');
   const url = `${baseUrl}/questions/tags/count?ids=${idsStr}`;
   const response = await fetch(url);
   if (!response.ok)
     throw new Error('Failed to count questions with tags');
-  const count = await response.json() as number;
-  return count;
+  return await response.json() as CountQuestionsWithTags;
 }
 
 export const getQuestionsWithTags = async (tagIDs: number[], count: number): Promise<Question[]> => {

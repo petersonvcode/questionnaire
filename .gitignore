@@ -9,3 +9,6 @@ frontend/dist
 
 # Backend
 backend/bin
+
+# Dev servers
+logs/

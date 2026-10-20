@@ -1,4 +1,4 @@
-import { Page, showElement, hideElement, displayQuestionAndOptions, confirmQuestion } from "./page";
+import { Page, showElement, hideElement, displayQuestionAndOptions, confirmQuestion, flashAnswer } from "./page";
 import { getRandomQuestion, Question} from '../questions'
 
 export class RandomQuestionPage implements Page {
@@ -76,7 +76,8 @@ export class RandomQuestionPage implements Page {
       console.warn('Question not loaded');
       return;
     }
-    confirmQuestion(this.question)
+    const { allCorrect } = confirmQuestion(this.question)
+    flashAnswer(allCorrect)
 
     this.hideConfirmButton()
     this.showAnotherQuestionButton()

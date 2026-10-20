@@ -378,26 +378,76 @@ func (r *QuestionRepository) GetTags() ([]domain.QuestionTagAPIResponse, error) 
 	return results, nil
 }
 
-func (r *QuestionRepository) CountQuestionsWithTags(tagIDs []int64) (int, error) {
-	query := `SELECT count(*) FROM questions`
-	params := make([]any, len(tagIDs))
-	for i, tagID := range tagIDs {
-		if i == 0 {
-			query += " WHERE id IN"
-		} else {
-			query += " AND id IN"
-		}
-		query += ` (SELECT question_id FROM question_tags WHERE tag_id = ?)`
-		params[i] = tagID
+func (r *QuestionRepository) CountQuestionsWithTags(tagIDs []int64) (domain.CountQuestionsWithTagsResponse, error) {
+	response := domain.CountQuestionsWithTagsResponse{
+		TotalCount:     0,
+		OtherTagsCount: make([]domain.OtherTagsCount, 0),
 	}
 
-	row := r.db.QueryRow(query, params...)
-	var count int
-	err := row.Scan(&count)
-	if err != nil {
-		return 0, err
+	countQuery := `SELECT COUNT(*) FROM questions`
+	countParams := make([]any, 0, len(tagIDs))
+	for i, tagID := range tagIDs {
+		if i == 0 {
+			countQuery += ` WHERE id IN (SELECT question_id FROM question_tags WHERE tag_id = ?)`
+		} else {
+			countQuery += ` AND id IN (SELECT question_id FROM question_tags WHERE tag_id = ?)`
+		}
+		countParams = append(countParams, tagID)
 	}
-	return count, nil
+
+	err := r.db.QueryRow(countQuery, countParams...).Scan(&response.TotalCount)
+	if err != nil {
+		return response, err
+	}
+
+	// Among questions that already match every selected tag, count how many
+	// also have each other tag. Those counts are the filters that can still be applied.
+	otherQuery := `SELECT question_tags.tag_id, COUNT(question_tags.question_id)
+		FROM question_tags
+		WHERE question_tags.question_id IN (SELECT id FROM questions`
+	otherParams := make([]any, 0, len(tagIDs)*2)
+	for i, tagID := range tagIDs {
+		if i == 0 {
+			otherQuery += ` WHERE id IN (SELECT question_id FROM question_tags WHERE tag_id = ?)`
+		} else {
+			otherQuery += ` AND id IN (SELECT question_id FROM question_tags WHERE tag_id = ?)`
+		}
+		otherParams = append(otherParams, tagID)
+	}
+	otherQuery += `)`
+	if len(tagIDs) > 0 {
+		otherQuery += ` AND question_tags.tag_id NOT IN (`
+		for i, tagID := range tagIDs {
+			if i > 0 {
+				otherQuery += `, `
+			}
+			otherQuery += `?`
+			otherParams = append(otherParams, tagID)
+		}
+		otherQuery += `)`
+	}
+	otherQuery += ` GROUP BY question_tags.tag_id ORDER BY COUNT(question_tags.question_id) DESC`
+
+	rows, err := r.db.Query(otherQuery, otherParams...)
+	if err != nil {
+		return response, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var item domain.OtherTagsCount
+		err = rows.Scan(&item.TagID, &item.Count)
+		if err != nil {
+			return response, err
+		}
+		response.OtherTagsCount = append(response.OtherTagsCount, item)
+	}
+	err = rows.Err()
+	if err != nil {
+		return response, err
+	}
+
+	return response, nil
 }
 
 func (r *QuestionRepository) GetQuestionsWithTags(tagIDs []int64, count int) ([]domain.Question, error) {
